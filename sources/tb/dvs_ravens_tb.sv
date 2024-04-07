@@ -12,7 +12,6 @@ module dvs_ravens_tb;
     int y_addr, x_addr, prev_y_addr, min_remain_time_between_events, delay_between_events;
     time event_start_time;
     logic polarity;
-    logic [10:0] events [$];
 
     localparam CLK_PERIOD = 10;
     localparam DVS_READOUT_TIME = 83.333333333333;
