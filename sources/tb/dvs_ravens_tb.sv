@@ -5,14 +5,23 @@ import dvs_ravens_pkg::*;
 
 module dvs_ravens_tb;
 
+    // Signals part of AER interface
     logic clk;
     logic [9:0] aer;
-    logic xsel, ack, req;
+    logic xsel;
+    logic req;
+    logic ack;
 
-    int y_addr, x_addr, prev_y_addr, min_remain_time_between_events, delay_between_events;
+    // Internal testbench signals
+    int y_addr;
+    int x_addr;
+    int prev_y_addr;
+    int min_remain_time_between_events;
+    int delay_between_events;
     time event_start_time;
     logic polarity;
 
+    // Internal testbench constants
     localparam CLK_PERIOD = 10;
     localparam DVS_READOUT_TIME = 83.333333333333;
     localparam LONG_GUARANTEED_DELAY = 1000;
