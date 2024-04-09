@@ -22,7 +22,6 @@ module dvs_ravens_tb;
     logic polarity;
 
     // Internal testbench constants
-    localparam CLK_PERIOD = 10;
     localparam DVS_READOUT_TIME = 83.333333333333;
     localparam LONG_GUARANTEED_DELAY = 1000;
     localparam LONG_MAX_ADDITIONAL_DELAY = 100;
