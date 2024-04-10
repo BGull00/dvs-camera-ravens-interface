@@ -1,3 +1,8 @@
+`timescale 1ns/1ps
+
+// Import global constants from SystemVerilog package
+import dvs_ravens_pkg::*;
+
 module aer_receiver
     (
         // Global inputs
@@ -10,11 +15,21 @@ module aer_receiver
         input logic req,
 
         // AER interface outputs
-        output logic ack
+        output logic ack,
+
+        // Sampled and stored valid AER data of most recently received event
+        output logic [9:0] aer_rx
     )
 
-    enum {WAIT_FOR_REQ_ASSERT, RECEIVE_DATA, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
+    enum {WAIT_FOR_REQ_ASSERT, DELAY_50NS, RECEIVE_DATA, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
 
+    // # of clock cycles needed to delay to ensure 50ns between REQ assertion and reading of X address AER data
+    // - 3 comes from: one clock cycle needed to transition from delay FSM state to AER read state, 2 clock cycles from double FF sync
+    localparam CLK_CYCLES_50NS = (50/CLK_PERIOD);
+    localparam REQ_COUNT_50NS = (CLK_CYCLES_50NS > 3) ? CLK_CYCLES_50NS - 3 : 0;
+
+    logic [$clog2(REQ_COUNT_50NS)-1:0] req_count;
+    logic reset_req_count;
     logic [9:0] aer_mid_sync, aer_synced;
     logic xsel_mid_sync, xsel_synced;
     logic req_mid_sync, req_synced;
@@ -24,7 +39,7 @@ module aer_receiver
     //=====================//
 
     // Double flip-flop synchronizers for REQ, XSelect, and AER data
-    always_ff @(posedge clk, negedge rst_n) begin: double_ff_sync
+    always_ff @(posedge clk, negedge rst_n) begin: rec_double_ff_sync
         if(!rst_n) begin
 
             // Reset first stage of input signals in double FF sync
@@ -61,21 +76,58 @@ module aer_receiver
         end
     end
 
+    // Counter based timer used to ensure delay of ~50ns between REQ and reading the AER data
+    always_ff @(posedge clk, negedge rst_n) begin: rec_timer
+        if(!rst_n || reset_req_count) begin
+            req_count <= REQ_COUNT_50NS;
+        end
+        begin else
+            req_count <= req_count - 1;
+        end
+    end
+
+    // On FSM transition into the RECEIVE_DATA state, sample and store input aer data (after double FF sync)
+    always_ff @(posedge clk, negedge rst_n) begin: rec_read_aer_into_reg
+        if(!rst_n) begin
+            aer_rx <= 0;
+        end
+        else begin
+            if(next_fsm_state == RECEIVE_DATA) begin
+                aer_rx <= aer_synced;
+            end
+        end
+    end
+
     //========================//
     // Combinational Circuits //
     //========================//
 
     // Receiver state machine next state combinational logic
-    always_comb begin : rec_fsm_next_state
+    always_comb begin: rec_fsm_next_state
         unique case(cur_fsm_state)
             
-            // Wait until the DVS camera sender asserts REQ before continuing to FSM state in which AER data is read
+            // Wait until the DVS camera sender asserts REQ before continuing to FSM state in which either the system delays for 50ns (for Y addresses) or AER data is read (for X addresses)
             WAIT_FOR_REQ_ASSERT: begin
                 if(req_synced) begin
-                    next_fsm_state = RECEIVE_DATA;
+                    if(aer_synced[0]) begin
+                        next_fsm_state = DELAY_50NS;
+                    end
+                    else begin
+                        next_fsm_state = RECEIVE_DATA;
+                    end
                 end
                 else begin
                     next_fsm_state = WAIT_FOR_REQ_ASSERT;
+                end
+            end
+
+            // Delay ~50ns between REQ assertion and reading AER data (only for Y addresses)
+            DELAY_50NS: begin
+                if(req_count != 0) begin
+                    next_fsm_state = DELAY_50NS;
+                end
+                else begin
+                    next_fsm_state = RECEIVE_DATA;
                 end
             end
 
@@ -102,11 +154,15 @@ module aer_receiver
     end
 
     // Receiver state machine output combinational logic
-    always_comb begin : rec_fsm_output
+    always_comb begin: rec_fsm_output
         unique case(cur_fsm_state)
             
             // While waiting until the DVS camera sender asserts REQ, deassert ACK
             WAIT_FOR_REQ_ASSERT: begin
+                ack = 0;
+            end
+
+            DELAY_50NS: begin
                 ack = 0;
             end
 
@@ -126,5 +182,8 @@ module aer_receiver
             end
         endcase
     end
+
+    // Reset 50ns delay timer for counting down between REQ assertion and reading AER data (for Y addresses only)
+    assign reset_req_count = (cur_fsm_state == WAIT_FOR_REQ_ASSERT && next_fsm_state == DELAY_50NS) ? 1 : 0;
 
 endmodule: aer_receiver
