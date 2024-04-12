@@ -9,4 +9,3 @@
         localparam NUM_TIMESTAMP_BITS = 48;
 
     endpackage: dvs_ravens_pkg
-`endif
