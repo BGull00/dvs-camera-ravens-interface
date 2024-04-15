@@ -94,7 +94,7 @@ module dvs_aer_receiver
         else begin
             if(next_fsm_state == RECEIVE_DATA) begin
                 aer_rx <= aer_synced;
-		xsel_rx <= xsel_synced;
+		        xsel_rx <= xsel_synced;
             end
         end
     end
