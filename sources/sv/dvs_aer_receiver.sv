@@ -26,7 +26,7 @@ module dvs_aer_receiver
 
     // # of clock cycles needed to delay to ensure 50ns between REQ assertion and reading of X address AER data
     // - 2 comes from: one clock cycle needed to transition from delay FSM state to AER read state, 1 clock cycle from double FF sync
-    localparam CLK_CYCLES_50NS = (50/CLK_PERIOD);
+    localparam CLK_CYCLES_50NS = (50/CLK_PERIOD_NS);
     localparam REQ_COUNT_50NS = (CLK_CYCLES_50NS > 2) ? CLK_CYCLES_50NS - 2 : 0;
 
     logic [$clog2(REQ_COUNT_50NS):0] req_count;

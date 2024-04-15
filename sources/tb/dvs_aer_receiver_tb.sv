@@ -137,7 +137,7 @@ module dvs_aer_receiver_tb;
     // Simulate interface's clock
     initial begin: clk_sim
         clk = 0;
-        forever #(CLK_PERIOD/2) clk = ~clk;
+        forever #(CLK_PERIOD_NS/2) clk = ~clk;
     end
 
     // Simulate reset signal
