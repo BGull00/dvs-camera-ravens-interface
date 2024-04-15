@@ -28,13 +28,13 @@ module dvs_ravens
 
     aer_receiver AER_RECEIVER_INST (
         .clk(clk),
-        .rst_n(rst_n)l,
+        .rst_n(rst_n),
         .aer(aer),
         .xsel(xsel),
         .req(req),
         .ack(ack),
         .aer_rx(aer_rx),
-        .xsel_rx(sxel_rx)
+        .xsel_rx(xsel_rx)
     );
 
 endmodule: dvs_ravens
