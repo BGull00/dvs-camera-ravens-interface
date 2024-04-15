@@ -18,6 +18,10 @@ module dvs_ravens
         output logic ack
     );
 
+    // Sampled and stored valid AER data of most recently received event
+    logic [9:0] aer_rx;
+	logic xsel_rx;
+
     //=========================//
     // Component Instantiation //
     //=========================//
@@ -28,7 +32,9 @@ module dvs_ravens
         .aer(aer),
         .xsel(xsel),
         .req(req),
-        .ack(ack)
+        .ack(ack),
+        .aer_rx(aer_rx),
+        .xsel_rx(sxel_rx)
     );
 
 endmodule: dvs_ravens
