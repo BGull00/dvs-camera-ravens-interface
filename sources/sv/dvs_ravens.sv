@@ -26,7 +26,7 @@ module dvs_ravens
     // Component Instantiation //
     //=========================//
 
-    aer_receiver AER_RECEIVER_INST (
+    dvs_aer_receiver DVS_AER_RECEIVER_INST (
         .clk(clk),
         .rst_n(rst_n),
         .aer(aer),
