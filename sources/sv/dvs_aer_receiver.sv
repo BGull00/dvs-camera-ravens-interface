@@ -90,11 +90,16 @@ module dvs_aer_receiver
     always_ff @(posedge clk, negedge rst_n) begin: rec_read_aer_into_reg
         if(!rst_n) begin
             aer_rx <= 0;
+            xsel_rx <= 0;
         end
         else begin
             if(next_fsm_state == RECEIVE_DATA) begin
                 aer_rx <= aer_synced;
 		        xsel_rx <= xsel_synced;
+            end
+            else begin
+                aer_rx <= aer_rx;
+                xsel_rx <= xsel_rx;
             end
         end
     end
