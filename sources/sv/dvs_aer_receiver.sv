@@ -19,7 +19,7 @@ module dvs_aer_receiver
 
         // Sampled and stored valid AER data of most recently received event
         output logic [9:0] aer_rx,
-	output logic xsel_rx
+	    output logic xsel_rx
     );
 
     enum {WAIT_FOR_REQ_ASSERT, DELAY_50NS, RECEIVE_DATA, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
