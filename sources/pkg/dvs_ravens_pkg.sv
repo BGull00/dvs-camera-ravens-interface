@@ -10,7 +10,7 @@
         localparam DVS_Y_ADDR_BITS = $clog2(DVS_HEIGHT_PXLS);
 
         // Clock cycle period in different units
-        localparam CLK_PERIOD_NS = 10;
+        localparam CLK_PERIOD_NS = 1;
         localparam CLK_PERIOD_US_DIVISOR = 1000 / CLK_PERIOD_NS;
 
         // Number of bits for the timestamp value in an event

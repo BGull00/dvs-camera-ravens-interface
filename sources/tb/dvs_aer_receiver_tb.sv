@@ -26,6 +26,8 @@ module dvs_aer_receiver_tb;
     int min_remain_time_between_events;
     int delay_between_events;
     int event_time;
+    int min_event_timestamp;
+    int max_event_timestamp;
     time event_start_time;
     logic polarity;
 
@@ -35,6 +37,7 @@ module dvs_aer_receiver_tb;
     localparam LONG_MAX_ADDITIONAL_DELAY = 100;
     localparam SHORT_MAX_ADDITIONAL_DELAY = 4;
     localparam MAX_RAND_DELAY = $rtoi(DVS_READOUT_TIME / 4);
+    localparam INV_PROB_LONG_DELAY = 20;
 
     // DUT: dvs_aer_receiver
     dvs_aer_receiver DVS_AER_RECEIVER_INST (
@@ -69,6 +72,12 @@ module dvs_aer_receiver_tb;
 
         // 3. Wait on receiver to assert ACK
         @(posedge ack);
+
+	// Ensure 50ns delay between REQ assertion and reading data for Y addresses
+	if(xselect == 0 && ($time - event_start_time - 2) < 50) begin
+	    $display("ERROR: Y address read less than 50ns after REQ assertion");
+	    $stop;
+	end
 
         // Extra random delaying to test receiver's waiting on REQ deassertion
         #($urandom%MAX_RAND_DELAY);
@@ -105,16 +114,27 @@ module dvs_aer_receiver_tb;
                 // Extra random delaying between y and x addresses
                 #($urandom%MAX_RAND_DELAY);
             end
+	    else begin
+		$display("Multiple X addresses for same Y address");
+	    end
             prev_y_addr = y_addr;
 
             // Send pixel X coordinate to receiver through AER Protocol in following format: aer_data[9:1] = X address; aer_data[0] = Polarity; XSelect = 1
             polarity = $urandom&1;
             aer_protocol_dvs_sim({x_addr[8:0], polarity}, 1);
 
-            // Randomly find amount of delay between events
-            if($urandom%2 == 0) begin
+	    // Ensure received event matches generated event
+	    min_event_timestamp = (event_timestamp != 0) ? event_timestamp-1 : 0;
+	    max_event_timestamp = (event_timestamp + 1 != 0) ? event_timestamp+1 : event_timestamp;
+	    if(x_addr != event_x || y_addr != event_y || event_polarity != polarity || (event_start_time/1000) < min_event_timestamp || (event_start_time/1000) > max_event_timestamp) begin
+		$display("ERROR: Received event does not match generated event!");
+		$stop;
+	    end
 
-                // 50% chance of having a long delay time between events
+            // Randomly find amount of delay between events
+            if($urandom%INV_PROB_LONG_DELAY == 0) begin
+
+                // Random chance of having a long delay time between events
                 delay_between_events = LONG_GUARANTEED_DELAY + ($urandom%LONG_MAX_ADDITIONAL_DELAY);
 
                 // Long time between events means Y address will need to be sent again no matter what
@@ -122,7 +142,7 @@ module dvs_aer_receiver_tb;
             end
             else begin
 
-                // 50% chance of having a short delay time between events
+                //  Otherwise, have a short delay time between events
                 delay_between_events = $urandom%SHORT_MAX_ADDITIONAL_DELAY;
             end
 
@@ -135,13 +155,19 @@ module dvs_aer_receiver_tb;
             else begin
                 #(delay_between_events);
             end
+
+	    // Ensure events are not generated at > 12MHz
+	    if(($time - event_start_time) < $rtoi(DVS_READOUT_TIME)) begin
+		$display("TB ERROR: Events generated at >12MHz");
+		$stop;
+	    end
         end 
     end
 
     // Simulate interface's clock
     initial begin: clk_sim
         clk = 0;
-        forever #(CLK_PERIOD_NS/2) clk = ~clk;
+        forever #($itor(CLK_PERIOD_NS)/2) clk = ~clk;
     end
 
     // Simulate reset signal
