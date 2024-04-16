@@ -18,6 +18,7 @@ module dvs_aer_receiver_tb;
     logic [DVS_Y_ADDR_BITS-1:0] event_y;
     logic [TIMESTAMP_US_BITS-1:0] event_timestamp;
     logic event_polarity;
+    logic new_event;
 
     // Internal testbench signals
     int y_addr;
@@ -50,7 +51,8 @@ module dvs_aer_receiver_tb;
         .event_x(event_x),
         .event_y(event_y),
         .event_timestamp(event_timestamp),
-        .event_polarity(event_polarity)
+        .event_polarity(event_polarity),
+        .new_event(new_event)
     );
 
     /* AER Protocol Format From Sender's Point of View:

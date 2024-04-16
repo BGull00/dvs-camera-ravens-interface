@@ -21,7 +21,10 @@ module dvs_aer_receiver
         output logic [DVS_X_ADDR_BITS-1:0] event_x,
         output logic [DVS_Y_ADDR_BITS-1:0] event_y,
         output logic [TIMESTAMP_US_BITS-1:0] event_timestamp,
-        output logic event_polarity
+        output logic event_polarity,
+
+        // Output control information
+        output logic new_event
     );
 
     enum {WAIT_FOR_REQ_ASSERT, DELAY_50NS, RECEIVE_DATA, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
@@ -110,6 +113,7 @@ module dvs_aer_receiver
             event_y <= 0;
             event_timestamp <= 0;
             event_polarity <= 0;
+            new_event <= 0;
         end
         else begin
 
@@ -120,6 +124,7 @@ module dvs_aer_receiver
                 if(xsel_synced == 0) begin
                     y_addr <= aer_synced[DVS_Y_ADDR_BITS-1:0];
                     timestamp_us <= timestamp_clk_cycles / CLK_PERIOD_US_DIVISOR;
+                    new_event <= 0;
                 end
 
                 // Set event signals when reading in an X address and polarity using previously read Y address and its timestamp in microseconds
@@ -128,7 +133,11 @@ module dvs_aer_receiver
                     event_y <= y_addr;
                     event_timestamp <= timestamp_us;
                     event_polarity <= aer_synced[0];
+                    new_event <= 1;
                 end
+            end
+            else begin
+                new_event <= 0;
             end
         end
     end
