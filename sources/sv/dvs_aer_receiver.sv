@@ -32,7 +32,7 @@ module dvs_aer_receiver
     localparam REQ_COUNT_50NS = (CLK_CYCLES_50NS > 2) ? CLK_CYCLES_50NS - 2 : 0;
 
     logic [DVS_Y_ADDR_BITS-1:0] y_addr;
-    logic [TIMESTAMP_US_BITS-1:0] timestamp_us,
+    logic [TIMESTAMP_US_BITS-1:0] timestamp_us;
     logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles;
     logic [$clog2(REQ_COUNT_50NS):0] req_count;
     logic [9:0] aer_mid_sync, aer_synced;
@@ -124,10 +124,10 @@ module dvs_aer_receiver
 
                 // Set event signals when reading in an X address and polarity using previously read Y address and its timestamp in microseconds
                 else begin
-                    event_x <= aer_rx[DVS_X_ADDR_BITS:1];
+                    event_x <= aer_synced[DVS_X_ADDR_BITS:1];
                     event_y <= y_addr;
                     event_timestamp <= timestamp_us;
-                    event_polarity <= aer_rx[0];
+                    event_polarity <= aer_synced[0];
                 end
             end
         end
