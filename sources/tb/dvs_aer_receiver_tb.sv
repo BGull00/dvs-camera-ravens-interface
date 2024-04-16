@@ -13,9 +13,11 @@ module dvs_aer_receiver_tb;
     logic req;
     logic ack;
 
-    // Output of AER receiver
-    logic [9:0] aer_rx;
-    logic xsel_rx;
+    // Output of AER receiver; describes a single event
+    logic [DVS_X_ADDR_BITS-1:0] event_x;
+    logic [DVS_Y_ADDR_BITS-1:0] event_y;
+    logic [TIMESTAMP_US_BITS-1:0] event_timestamp;
+    logic event_polarity;
 
     // Internal testbench signals
     int y_addr;
@@ -42,8 +44,10 @@ module dvs_aer_receiver_tb;
         .xsel(xsel),
         .req(req),
         .ack(ack),
-        .aer_rx(aer_rx),
-	.xsel_rx(xsel_rx)
+        .event_x(event_x),
+	    .event_y(event_y),
+        .event_timestamp(event_timestamp),
+        .event_polarity(event_polarity)
     );
 
     /* AER Protocol Format From Sender's Point of View:
