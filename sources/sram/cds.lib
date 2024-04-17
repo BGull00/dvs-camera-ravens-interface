@@ -1,0 +1,14 @@
+DEFINE analogLib $CDS/tools/dfII/etc/cdslib/artist/analogLib
+DEFINE sbaLib $CDS/tools/dfII/etc/cdslib/artist/sbaLib
+DEFINE basic $CDS/tools/dfII/etc/cdslib/basic
+DEFINE sample $CDS/tools/dfII/samples/cdslib/sample
+DEFINE US_8ths $CDS/tools/dfII/etc/cdslib/sheets/US_8ths
+DEFINE cmos10lpe $KITDIR/cmos10lpe/V1.5.0.0RF/cdslib/cmos10lpe
+DEFINE esd10lpe $KITDIR/cmos10lpe/V1.5.0.0RF/cdslib/esd10lpe
+DEFINE stdlib_10lpe /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_10lpe
+DEFINE stdlib_10lpe_filler /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_10lpe_filler
+DEFINE stdlib_10lpe_sims /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_10lpe_sims
+DEFINE stdio_10lpe /research/pdk/cmos10lpe_pdk/cmos10lpe_stdio/stdio_10lpe
+DEFINE sram_cells_10lpe_HD /research/pdk/cmos10lpe_pdk/cmos10lpe_sram/sram_cells_10lpe_HD
+DEFINE sram_logic_10lpe_HD /research/pdk/cmos10lpe_pdk/cmos10lpe_sram/sram_logic_10lpe_HD
+SOFTINCLUDE local.lib

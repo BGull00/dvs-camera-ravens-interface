@@ -1,0 +1,7 @@
+cUiMoveCellToBin {rowDecoder_compiler1} {Ignore}
+cUiSelectCellP {rowDecoder_compiler1}
+cUiSetViewStatus {rowDecoder_compiler1} {layout} {1}
+cUiSetViewStatus {rowDecoder_compiler1} {logical} {0}
+cUiSetViewStatus {rowDecoder_compiler1} {abstract.pin} {0}
+cUiSetViewStatus {rowDecoder_compiler1} {abstract.ext} {0}
+cUiSetViewStatus {rowDecoder_compiler1} {abstract} {0}

@@ -1,0 +1,206 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; cmos10lpe template dir            ;
+; .cdsinit                          ;
+; University of Tennessee Knoxville ;
+; John Murray                       ;
+; 2020                              ;
+;                                   ;
+; Kit:           cmos10LPe          ;
+; Stack:         4_02_00_00_LB + RR ;
+; Rev:           v0.01              ;
+; Last mofified: 2020/11/09         ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;#################################################
+;###                                           ###
+;### START OF CADENCE CDSINIT TEMPLATE SECTION ###
+;###                                           ###
+;#################################################
+
+;################################################
+;#
+;# SETTINGS FOR SKILL PATH and SKILL PROGRAMMING
+;#
+;################################################;
+
+sstatus(writeProtect nil)
+
+let((skillPath)
+   skillPath= strcat(
+    ". ~ "                                          ; Current & home directory
+    prependInstallPath("samples/techfile ")         ; sample source technology files
+   )
+   setSkillPath(skillPath)
+)
+
+;################################################
+;#
+;# LOAD APPLICATION BIND KEY DEFINITIONS
+;#
+;################################################
+
+let( (bindKeyFileList file path saveSkillPath)
+    bindKeyFileList = '(
+                 "leBindKeys.il"
+                 "schBindKeys.il"
+                    )
+
+;  this is the path that is searched for the files
+    path = strcat(
+              ".   ~   "
+              prependInstallPath("local ")
+              prependInstallPath("samples/local")
+             )
+    saveSkillPath=getSkillPath()
+    setSkillPath(path)
+
+   foreach(file bindKeyFileList
+       if(isFile(file) then
+          loadi(file)
+         )
+    )
+
+    setSkillPath(saveSkillPath)
+)
+
+;################################################
+;#
+;# MISCELLANEOUS
+;#
+;################################################
+
+
+;END OF USER CUSTOMIZATION
+
+
+; Schematic cellview to cellview defaults for creating a symbol with Artist
+; IL interpreted labels. The default is to not create an Artist symbol.
+
+schSetEnv( "tsgTemplateType" "artist" )
+
+
+;###############################################
+;###                                         ###
+;### END OF CADENCE CDSINIT TEMPLATE SECTION ###
+;###                                         ###
+;###############################################
+
+/* IBM_PDK A&MS customization */
+
+_stacktrace = 7
+
+/* Skill commands for user customization */
+hiSetFilterOptions(t t t t t t t)                 /* Log filter options      */
+hiGetCIWindow()->displayMouseBinding = t
+hiGetCIWindow()->scrollBars = t                   /* Turn on scroll bars     */
+hiGetCIWindow()->infix = nil                      /* Turn off infix          */
+hiSetUndoLimit(10)                                /* Allow 10 undos          */
+hiSetMultiClickTime(500)                          /* Set double click=500    */
+hiFormApply( hiSysProps )
+
+/* IBM Applied Settings */
+leSetEnv("modalCommands" t)
+leSetEnv("displayRefPoint" t)
+leSetEnv("autoSetRefPoint" nil)
+leSetEnv("flattenMode" "one level")
+leSetEnv("flattenPCells" t)
+
+/* END OF IBM_PDK CUSTOMIZATION */
+
+
+
+ibmPdkPath="/research/pdk/cmos10lpe_pdk/ibm_pdk/"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Only check for '.1' when loading context so both 6.1.8 and ADVM18.1 (our versions)
+; will match. Hacky fix, especially since there are 5.1.x contexts, but no one uses
+; that anymore...
+; Should check for 6.1 || ADVMxxx
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+cond(
+;; Use 64bit
+;; ( index(getVersion() ".1")  loadContext(strcat( ibmPdkPath "cmos10lpe/V1.5.0.0RF/cdslib/Skill/ibmPdkProcs610.cxt"))
+  ( index(getVersion() ".1")  loadContext(strcat( ibmPdkPath "cmos10lpe/V1.5.0.0RF/cdslib/Skill/64bit/ibmPdkProcs610.cxt"))
+                               hiRegTimer("ibmPdkInit()" 1))
+  ( t warn("ibmPdkProcs file not loaded. Only version IC6.1 supported."))
+);cond
+
+/* Don't load IBM keys */
+; /* IBM Bindkeys are loaded by default but overwritten by ./.cdsinit_bindkeys */
+; load(strcat( ibmPdkPath "cmos10lpe/V1.5.0.0RF/cdslib/Skill/ibmPdkBindkeys.il"))
+
+
+;;;;;;;;;;;;;;;;;;;
+;; Calibre setup ;;
+;;;;;;;;;;;;;;;;;;;
+;; Load Calibre Skill Interface if environment var is set
+mgc_home=getShellEnvVar("MGC_HOME")
+
+if( mgc_home!=nil && isDir(mgc_home) && isReadable(mgc_home) then
+    ; Load calibre.skl for Cadence versions 4.4 and greater
+    load(strcat(mgc_home "/shared/pkgs/icv/tools/queryskl/calibre.skl"))
+    mgc_eview_globals->cellMapFile = strcat(ibmPdkPath "cmos10lpe/V1.5.0.0RF/Calibre/xRC/cmos10lpe.calibre.cellmap")
+else
+    ; MGC_HOME is not set
+    printf("Calibre Skill Interface not loaded.\n")
+)
+;; End of Calibre Skill Interface
+
+; Set default netlist export template file
+mgc_calibre_export_netlist_template_file="/research/pdk/cmos10lpe_pdk/calibre/si-netlist-export-template.env"
+mgc_rve_load_export_netlist_template_file()
+
+;;;;;;;;;;;;;;;;;;
+;; Custom SKILL ;;
+;;;;;;;;;;;;;;;;;;
+
+;;;
+;;; This is not needed when using a technology library based of the 
+;;; "tech4_02_00_00_LB_RR.tf" technology file. This stop layer is already 
+;;; included as a derived stop layer inside the technology file.
+;;;
+; Add stop layer between derived layer (RX not PC) in virtual memory since the tech lib is RO
+; This fixes nets propagating underneath gates during extraction in > Layout L.
+;lceAddSimpleStopLayers("cmos10lpe" list(list("RX" "PC")))
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Custom settings ;;
+;;;;;;;;;;;;;;;;;;;;;
+
+; Load custom bindkeys if file for them exists
+if( isFile(".cdsinit_bindkeys") then
+  loadi(".cdsinit_bindkeys")
+)
+
+; Don't prefix layout instances with the '|' character
+envSetVal("layoutXL" "prefixLayoutInstNamesWithPipe" 'boolean nil)
+
+; Set pin labels to be on same layer with "net" purpose
+envSetVal("layout" "pinTextSameLayer" 'boolean t)
+envSetVal("layout" "pinTextPurpose" 'string "net")
+; Set default label height to be 0.05
+envSetVal("layout" "labelHeight" 'float 0.05)
+
+; Set simulation, results, and project directories for simulation
+username=getShellEnvVar("USER")
+asim_projectdirpath=strcat( "/data1/" username "/cmos10lpe/simulation/" )
+adexl_resdirpath=strcat( "/data1/" username "/cmos10lpe/simulation-adexl/results" )
+adexl_dirpath=strcat( "/data1/" username "/cmos10lpe/simulation-adexl/results-dbs" )
+envSetVal("asimenv.startup" "projectDir" 'string asim_projectdirpath)
+envSetVal("adexl.results" "saveResDir" 'string adexl_resdirpath)
+envSetVal("adexl.results" "saveDir" 'string adexl_dirpath)
+
+; Automatically include the wrapper scs file for the PDK spectre models in the "Model Libraries"
+asiSetEnvOptionVal(asiGetTool('spectre) "modelFiles" '(string strcat(ibmPdkPath "cmos10lpe/V1.5.0.0RF/Spectre/models/design.scs")))
+
+; Virtuoso visualization "split all strip" by defaut
+envSetVal("viva.trace" "lineThickness" 'string "thick")
+envSetVal("viva.rectGraph" "stripChartOn" 'string "true")
+
+
+
+;; Move CIW window
+hiResizeWindow(window(1) list(41:0 766:188))
+
+;; Open library manager on startup
+ddsOpenLibManager()

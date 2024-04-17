@@ -1,0 +1,100 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; cmos10lpe template dir            ;
+; .simrc                            ;
+; University of Tennessee Knoxville ;
+; John Murray                       ;
+; 2020                              ;
+;                                   ;
+; Kit:           cmos10LPe          ;
+; Stack:         4_02_00_00_LB + RR ;
+; Rev:           v0.11              ;
+; Last modified: 2020/12/09         ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+; Allow for CDL netlists to be included automatically with the use of 
+; the CDL_NETLIST_FILE property
+auCdlEnableNetlistInclusion = 't
+
+
+/*
+ * For auCdl netlisting, when using ansCdlPrintInst for a cell's auCdl Simulation
+ * Information netlistProcedure CDF parameter remap any cells from the hfo10lpe 
+ * library, where the cellName contains "rr_hfo" and that pattern is the first 
+ * part of the cellName to be printed as "rr_hfo" in the netlist.
+ * This is so that multiple rr_hfo* cells can exist and all be correctly mapped
+ * during Calibre LVS, since it defines a "rr_hfo" device.
+ *
+ * auCdl netlisting does not impact spectre or other simulators.
+ *
+ * Useful references:
+ *   Is there a way to remove the / character from the instance lines in the auCdl netlist
+ *     20208912
+ *     https://support.cadence.com/apex/ArticleAttachmentPortal?id=a1Od0000000tOEfEAM
+ *   auCdl: How can I get cell instances to use the value of an instance CDF 
+ *          parameter as its name?
+ *     11546588
+ *     https://support.cadence.com/apex/ArticleAttachmentPortal?id=a1Od0000000nW13EAE
+ *   auCdl netlisting: need to change model/subType name in generated netlist as a 
+ *                     function of a given schematic instance property
+ *     20412387
+ *     https://support.cadence.com/apex/ArticleAttachmentPortal?id=a1Od00000004zD8EAI
+ *
+ ****************************************************************************************
+ * In certain conditions, this implementation may generate error messages in the CIW 
+ * window and log. The messages will complain about functions not being able to be 
+ * redefined becase they are "write protected".
+ * 
+ * These error messages do *NOT* impact the functionality of the name mapping.
+ * With the current name mapping implementation, the auCdl netlist is still 
+ * created correctly, despite the error messages in the CIW.
+ * 
+ * A part of the IBM context, which creates the "IBM_PDK" menus and such, 
+ * *write protects* the functions used in this implementation when the
+ * following, specfic, process is performed:
+ *   Start Virtuoso
+ *   Open schematic
+ *   IBM_PDK->Netlist->CDL
+ *   "Run in Background" must be disabled by deselecting the checkbox
+ *   Click "OK" or "Apply"
+ * 
+ * If Calibre LVS, or anything that exports an auCdl netlist, like this form, has 
+ * been run before, the error will occur after pressing "OK" or "Apply". Any 
+ * subsequent auCdl netlist creation will generate the errors, even if they 
+ * weren't displayed on after the first "OK" or "Apply".
+ * 
+ * Using the CIW->File->Export->CDL... form, which is basically the same thing as 
+ * the IBM form, just not integrated into the schematic menus, does NOT cause 
+ * these errors, even if "Run in Background" is disabled.
+ * 
+ * Restarting Virtuoso resets this process.
+ * 
+ * 
+ * Because of the following reasons:
+ *   This form is from IBM's context file, which is uneditable and unreadable
+ *   The CIW->File->Export->CDL form works even with the "Run in Background" disabled.
+ *   The odds of someone using the IBM_PDK->Netlist->CDL form are slim.
+ *   The odds of someone also disabling "Run in Background" option are even slimmer
+ * I consider this to be a "known problem" and "won't fix" due to a bug in IBM's context file
+ ****************************************************************************************/
+procedure(ansCdlPrintModuleName(fp isAPrimitive inst master parent mappedModuleName)
+  if((master~>libName == "hfo10lpe" && 
+      nindex(master~>cellName "rr_hfo") == 1 && index(master~>cellName "rr_hfo") != nil) then
+    printf("\tRemapping cell %s to \"/ rr_hfo \"\n" master~>cellName)
+    artFprintf(fp "/ rr_hfo ")
+  else
+    artFprintf(fp "/ %s " master~>cellName)
+  )
+)
+
+; How to print the connections/pins an instance when using ansCdlPrintInst 
+; for a cell's auCdl Simulation Information netlistProcedure CDF parameter
+procedure(ansCdlPrintConnections(fp connections)
+  foreach(cn connections
+    artFprintf(fp "%s " cadr(cn))
+  )
+)
+
+; Print the parts of an instance in this order when using ansCdlPrintInst 
+; for a cell's auCdl Simulation Information netlistProcedure CDF parameter
+auCdlInstPrintOrder = list('instName 'connections 'moduleName 'instParams 'instProps)

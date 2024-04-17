@@ -1,0 +1,2 @@
+SOFTINCLUDE /home/mdickey6/ece551/dvs-camera-ravens-interface/sources/sram_compiler/compiler-runs/run-20240416_205557-r32-c32-w8/library/sram_compiled_20240416_205557_r32_c32_w8-library.lib
+SOFTINCLUDE /home/mdickey6/ece551/dvs-camera-ravens-interface/sources/sram_compiler/compiler-runs/run-20240416_205716-r32-c32-w8/library/sram_compiled_20240416_205716_r32_c32_w8-library.lib

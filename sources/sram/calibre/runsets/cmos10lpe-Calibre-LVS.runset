@@ -1,0 +1,35 @@
+*lvsRulesFile: /research/pdk/cmos10lpe_pdk/ibm_pdk/cmos10lpe/V1.5.0.0RF/Calibre/LVS/cmos10lpe.lvs.cal
+*lvsRunDir: /home/mdickey6/cmos10lpe/calibre
+*lvsLayoutGetFromViewer: 1
+*lvsSourceGetFromViewer: 1
+*lvsEnvVars: {TECHDIR /research/pdk/cmos10lpe_pdk/ibm_pdk/cmos10lpe/V1.5.0.0RF/Calibre/ Runset} {BURN_IN YES Runset} {IOTYPE INLINE Runset} {ANTENNA_RESULTS antenna.results Runset} {BEOL_STACK 4_02_00_00_LB Runset} {CHECK_NUMBER_OF_FINGERS TRUE Runset} {CHECK_TIEDOWN_PARAM TRUE Runset} {IGNORE_PCCRIT_PARAM FALSE Runset} {IGNORE_W_TOLERANCE FALSE Runset} {NO_TRACE_PROPERTY FALSE Runset} {PEX_RUN FALSE Runset} {REDUCE_SERIES_MOS FALSE Runset} {REDUCE_SPLIT_GATES FALSE Runset} {WITH_RR_HFO TRUE Runset} {WITH_R4_HFO TRUE Runset} {WITH_R1_HFO TRUE Runset}
+*lvsIncludeCmdsType: SVRF
+*lvsSVRFCmds: {LAYOUT CASE YES} {SOURCE CASE YES} {}
+*lvsViewReport: 0
+*lvsReportOptions: A B C D FX G MC S
+*lvsTemplate_IS: 1
+*lvsTemplate_LR: %L-%l-%V.lvs.report
+*lvsTemplate_ES: %L-%l-%V.sp
+*lvsTemplate_ED: %L-%l-%V.erc.results
+*lvsTemplate_EU: %L-%l-%V.erc.summary
+*lvsTemplate_SP: %L-%s.src.net
+*lvsRunsetType: LVS
+*lvsPowerNames: vdd! VDD! vcc VCC vdd VDD vddh VDDH vdd_h VDD_H vddl VDDL vdd_l VDD_L avdd AVDD vdda VDDA vdd1 VDD1 vdd2 VDD2 vdd0v6 vdd1v0 vdd1v2 vdd2v5 vdd3v3 VDD0V6 VDD1V0 VDD1V2 VDD2V5 VDD3V3 VDD0v6 VDD1v0 VDD1v2 VDD2v5 VDD3v3
+*lvsGroundNames: gnd! GND! gnd GND vss VSS agnd AGND gnda GNDA
+*cmnWarnLayoutOverwrite: 0
+*cmnWarnSourceOverwrite: 0
+*cmnPromptSaveRunset: 0
+*cmnShowOptions: 1
+*cmnSaveRunsetChanges: 0
+*cmnVConnectReport: 1
+*cmnVConnectNamesState: SOME
+*cmnVConnectNames: vdd! gnd!
+*cmnRunMT: 1
+*cmnRunHyper: 1
+*cmnRunHyperCompare: 1
+*cmnTemplate_CF: %L-%l-%V.lvs.cal
+*cmnTemplate_DF: %L-%l-%V.def
+*cmnTemplate_LP: %L-%l-%V.calibre.db
+*cmnTemplate_RL: /research/pdk/cmos10lpe_pdk/ibm_pdk/cmos10lpe/V1.5.0.0RF/Calibre/LVS/cmos10lpe.lvs.cal
+*cmnTemplate_RN: /home/mdickey6/cmos10lpe/calibre
+*lvsRecognizeGates: ALL

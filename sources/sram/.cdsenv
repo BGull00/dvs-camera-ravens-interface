@@ -1,0 +1,85 @@
+license	VLSL_UseNextLicense	string	"always"
+license	VLSXL_UseNextLicense	string	"always"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; cmos10lpe template dir            ;
+; .cdsenv (basic + small extras)    ;
+; University of Tennessee Knoxville ;
+; John Murray                       ;
+; 2020                              ;
+;                                   ;
+; Kit:           cmos10LPe          ;
+; Stack:         4_02_00_00_LB + RR ;
+; Rev:           v0.01              ;
+; Last modified: 2020/12/09         ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;; This is from the PDK's example .cdsenv
+layout          instLibName     string  "cmos10lpe"
+
+
+;;;;;;;;;;
+;;; UI ;;;
+;;;;;;;;;;
+ui  undoLevel int 128
+ui  promptOutput  boolean t
+ui  accelInput  boolean t
+ui  accelReturnValue  boolean t
+ui  infix boolean nil
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Schematic & Symbol ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Label font default height (default is 0.0625)
+schematic createLabelFontHeight float 0.05
+
+schematic schDynamicNetHilightOn boolean t
+schematic autoDot boolean t
+schematic schCursorShape  boolean t
+schematic schDynamicHilightOn boolean t
+schematic tsgTemplateType string  "artist"
+schematic srcSolderOnCrossover  cyclic  "ignored"
+schematic gravityOn boolean nil
+;;; Whether or not to draw axes in the symbol editor
+; Select from nil or t
+schematic symDrawAxesOn boolean t
+;;; Whether or not to use a cross/cross-hair cursor in the symbol editor
+; Select from nil or t
+schematic symCursorShape boolean t
+;;; Whether or not to display text justification in the symbol editor
+; Select from nil or t
+schematic symShowLabelOrigin boolean t
+
+;;; Grid & snap settings
+schematic schSnapSpacing  float 0.05
+schematic schGridSpacing  float 0.1
+schematic schGridMultiple int 10
+schematic symSnapSpacing  float 0.005
+schematic symGridSpacing  float 0.1
+schematic symGridMultiple int 10
+
+
+;;; Set which wire routing method the schematic editor should use by default
+; Select from "route", "anyAngle", "l90X", "l90Y", "l45Long", "l45Angle"
+schematic drawModeRoute   string "l90X"
+
+schematic schematicAreaPartialSelect boolean t
+schematic symbolAreaPartialSelect boolean t
+
+;;; Set which way wire bundle names should be displayed
+; Select from "horizontal" or "vertical"
+schematic bundleDisplayMode cyclic "vertical"
+
+;;;;;;;;;;;;;;
+;;; Layout ;;;
+;;;;;;;;;;;;;;
+
+;;; Display settings
+layout  gridSpacing   float 0.001
+layout  gridMultiple  int 5
+layout  xSnapSpacing  float 0.001
+layout  ySnapSpacing  float 0.001
+layout  stopLevel int 20
+
+layoutXL  sfactorNames  string  "s S sc SC"
+layoutXL  mfactorNames  string  "m M"

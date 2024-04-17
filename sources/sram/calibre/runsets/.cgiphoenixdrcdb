@@ -1,0 +1,8 @@
+DRC_RS paths: /home/salam12/cadence/neuropipe/suny10lpe/calibre/runsets/cmos10lpe-Calibre-DRC-cell.runset 
+DRC_RS paths: /home/salam12/cadence/neuropipe/suny10lpe/calibre/runsets/cmos10lpe-Calibre-DRC-cell-recommended.runset  runsetType: DRC
+DRC_RS paths: /home/salam12/cadence/neuropipe/suny10lpe/calibre/runsets/cmos10lpe-Calibre-DRC-tapeout-ant.runset  runsetType: DRC
+DRC_RS paths: /home/salam12/cadence/neuropipe/suny10lpe/calibre/runsets/cmos10lpe-Calibre-DRC-tapeout-esd.runset  runsetType: DRC
+DRC_RS paths: /home/salam12/cadence/neuropipe/suny10lpe/calibre/runsets/cmos10lpe-Calibre-DRC-tapeout-chip.runset  runsetType: DRC
+DRC_RS paths: /home/salam12/cadence/neuropipe/suny10lpe/calibre/runsets/cmos10lpe-Calibre-DRC-tapeout-chip-esd.runset  runsetType: DRC
+DRC_RS paths: /home/salam12/cadence/neuropipe/suny10lpe/calibre/runsets/cmos10lpe-Calibre-DRC-tapeout-chip-noesd.runset  runsetType: DRC
+DRC_RS paths: /home/salam12/cadence/neuropipe/suny10lpe/calibre/runsets/cmos10lpe-Calibre-DRC-tapeout-chip-noesd-noant.runset  runsetType: DRC

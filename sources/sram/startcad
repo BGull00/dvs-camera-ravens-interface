@@ -1,0 +1,140 @@
+#!/bin/sh
+. /sw/etc/modules/cadence/
+
+umask 002
+
+##################
+### HOW TO USE ###
+##################
+# From a terminal, either run
+#   source ./startcad
+# or
+#   . ./startcad
+#
+# Executing the file (with "./startcad") will
+# not export the variables to the shell.
+
+#####################
+### Cadence Tools ###
+#####################
+
+module load Conformal/212
+#  module load Jasper/1909
+module load Genus/211
+# Joules
+# module load JLS/211
+# Tempus & Voltus
+module load SSV/211
+module load Xcelium/2203
+module load Quantus/212
+module load Pegasus/213
+module load Spectre/201
+module load Liberate/217
+module load Virtuoso/618_280
+#module load Virtuoso/ADVM201
+module load Innovus/211
+
+# Assura / PCB / Allegro
+# You may wish to set the ASSURAHOME variable
+#module load SPB/174
+#module load Sigrity/2019
+
+. /sw/etc/modules/mentor
+####################
+### Mentor Tools ###
+####################
+module load Calibre/2022.1
+# module load modelsim/2020.1
+module load Questasim/2022.4
+
+
+. /sw/etc/modules/synopsys
+######################
+### Synopsys Tools ###
+######################
+# module load cosmosscope/P-2019.06
+# module load customcompiler/Q-2020.03-SP1
+module load designcompiler/T-2022.03-SP5-1
+module load librarycompiler/T-2022.03-SP5
+# module load hspice/P-2019.06-SP1-1
+module load prime/U-2022.12
+# module load sentaurus/P-2019.03-SP1
+module load synplify/T-2022.09-SP2
+module load waveview/T-2022.06-SP2
+
+### Cadence Tool Environment Modifications ###
+## OA
+#unset OA_HOME
+#unset OA_PLUGIN_PATH
+# Manually set OA_HOME to the version bundled with Innovus (19.17) since it's the newest
+# Other wise, the OA bundled with Calibre prevents interaction (e.g. creating extracted view)
+export OA_HOME="/sw/cadence/pkgs/INNOVUS211/oa_v22.60.076"
+export OA_PLUGIN_PATH="/sw/cadence/pkgs/INNOVUS211/oa_v22.60.076/data/plugins"
+
+## Liberate
+export ALTOS_QUEUE="1"
+
+#######################
+### Other Variables ###
+#######################
+if [ -n "$BASH_SOURCE" ]; then
+  SCRIPT_FILE=$BASH_SOURCE
+elif [ -n "$ZSH_VERSION" ]; then
+  setopt function_argzero
+  SCRIPT_FILE=$0
+else
+  echo 1>&2 "Unsupported shell. Please use bash or zsh."
+  exit 2
+fi
+
+### Kit environment settings
+export KITDIR="/research/pdk/cmos10lpe_pdk/ibm_pdk"
+# Make sure to change the Calibre runsets below if you change kits.
+export TECHDIR="${KITDIR}/cmos10lpe/V1.5.0.0RF/Calibre/"
+#export BASEDIR="/research/pdk/cmos10lpe_pdk"
+export BASEDIR="$(cd "$(dirname "${SCRIPT_FILE}")" > /dev/null 2>&1 && pwd)"
+# Make sure to change the Calibre runsets below if you change kits.
+
+### Cadence environment settings
+export CDS_LOAD_ENV=CWDElseHome
+export CDS_LOG_PATH="${HOME}/"
+
+### Calibre environment settings
+export USE_CALIBRE_64="YES"
+export MGC_PDF_READER="/usr/bin/evince"
+export MGC_RVEDB_DIR="${BASEDIR}/calibre/runsets:${BASEDIR}/calibre:${HOME}"
+export MGC_CALIBRE_CGIDB_DIR="${BASEDIR}/calibre/runsets"
+export MGC_CALIBRE_DRC_RUNSET_FILE="${BASEDIR}/calibre/runsets/cmos10lpe-Calibre-DRC-cell.runset"
+# export MGC_CALIBRE_DRC_RUNSET_FILE="${BASEDIR}/calibre/runsets/cmos10lpe-Calibre-DRC-cell-recommended.runset"
+export MGC_CALIBRE_LVS_RUNSET_FILE="${BASEDIR}/calibre/runsets/cmos10lpe-Calibre-LVS.runset"
+export MGC_CALIBRE_PEX_RUNSET_FILE="${BASEDIR}/calibre/runsets/cmos10lpe-Calibre-PEX.runset"
+export MGC_RVE_INIT_SOCKET_AT_STARTUP="1"
+### Calibre RealTime
+# Make RealTime clean up after itself
+export MGC_CALIBRE_REALTIME_VIRTUOSO_SAVE_MESSENGER_CELL="1"
+export MGC_CALIBRE_REALTIME_VIRTUOSO_REMOVE_LIBS_ON_EXIT="1"
+# Mapping files
+export MGC_REALTIME_LAYER_MAP_FILE="${KITDIR}/cmos10lpe/V1.5.0.0RF/cdslib/cmos10lpe/cmos10lpe.layermap"
+export MGC_RVE_GDS_LAYER_MAP_FILE="${KITDIR}/cmos10lpe/V1.5.0.0RF/cdslib/cmos10lpe/cmos10lpe.layermap"
+# These are for RealTime initialization, since it tries to load a rules file on start if a runset isn't defined
+export BEOL_STACK="4_02_00_00_LB"
+export DESIGN_TYPE="CELL"
+export IOTYPE="INLINE"
+export RECOMMENDED_RULES="NO"
+export BURN_IN="YES"
+export ANTENNA_RESULTS="antenna.results"
+export WITH_RR="1"
+export WITH_LEGACY_RR_RULES="1"
+# For Innovus:
+# Need to manually load: "${MGC_HOME}/lib/cal_enc.tcl"
+# e.g. innovus -files "$MGC_HOME/lib/cal_enc.tcl design.tcl" -win -log innovus.log
+# Or, set it up to be automatically loaded
+
+### Simulation
+# export AMSHOME="/sw/cadence/pkgs/XCELIUM2003" ### TODO: Check if needed with Xcelium/Spectre anymore
+# Use CPP (C preprocessor)
+export SPECTRE_DEFAULTS="-E"
+
+### Editor to use
+export EDITOR="/usr/bin/gedit"
+virtuoso &
