@@ -27,7 +27,7 @@ module dvs_aer_receiver
         output logic new_event
     );
 
-    enum {WAIT_FOR_REQ_ASSERT, DELAY_50NS, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
+    enum {WAIT_FOR_REQ_ASSERT, DELAY_50NS, RECEIVE_DATA, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
 
     // # of clock cycles needed to delay to ensure 50ns between REQ assertion and reading of X address AER data
     // - 2 comes from: one clock cycle needed to transition from delay FSM state to AER read state, 1 clock cycle from double FF sync
@@ -104,7 +104,7 @@ module dvs_aer_receiver
         end
     end
 
-    // On FSM transition into the WAIT_FOR_REQ_DEASSERT state, sample and store event data using double FF synced AER data
+    // On FSM transition into the RECEIVE_DATA state, sample and store event data using double FF synced AER data
     always_ff @(posedge clk, negedge rst_n) begin: rec_sample_aer_event_data
         if(!rst_n) begin
             y_addr <= 0;
@@ -117,8 +117,8 @@ module dvs_aer_receiver
         end
         else begin
 
-            // Only sample AER data on FSM transition into WAIT_FOR_REQ_DEASSERT state
-            if(next_fsm_state == WAIT_FOR_REQ_DEASSERT) begin
+            // Only sample AER data on FSM transition into RECEIVE_DATA state
+            if(next_fsm_state == RECEIVE_DATA) begin
 
                 // Read in Y address and find the timestamp in microseconds for every subsequently read event at this Y address
                 if(xsel_synced == 0) begin
@@ -157,7 +157,7 @@ module dvs_aer_receiver
                         next_fsm_state = DELAY_50NS;
                     end
                     else begin
-                        next_fsm_state = WAIT_FOR_REQ_DEASSERT;
+                        next_fsm_state = RECEIVE_DATA;
                     end
                 end
                 else begin
@@ -171,8 +171,13 @@ module dvs_aer_receiver
                     next_fsm_state = DELAY_50NS;
                 end
                 else begin
-                    next_fsm_state = WAIT_FOR_REQ_DEASSERT;
+                    next_fsm_state = RECEIVE_DATA;
                 end
+            end
+
+            // Only spend a single clock cycle receiving AER data before moving on to next state in which we wait for the DVS camera to re-assert REQ
+            RECEIVE_DATA: begin
+                next_fsm_state = WAIT_FOR_REQ_DEASSERT;
             end
 
             // Wait until the DVS camera sender deasserts REQ before continuing to next state in which we wait for the DVS camera sender to re-assert REQ
@@ -193,6 +198,6 @@ module dvs_aer_receiver
     end
 
     // Receiver state machine output combinational logic; only assert ACK when receiver has received AER data and is waiting for the sender to deassert REQ
-    assign ack = (cur_fsm_state == WAIT_FOR_REQ_DEASSERT) ? 1 : 0;
+    assign ack = (cur_fsm_state == WAIT_FOR_REQ_DEASSERT || cur_fsm_state == RECEIVE_DATA) ? 1 : 0;
 
 endmodule: dvs_aer_receiver
