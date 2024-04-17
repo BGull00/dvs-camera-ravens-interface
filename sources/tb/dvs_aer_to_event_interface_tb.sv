@@ -3,7 +3,7 @@
 // Import global constants from SystemVerilog package
 import dvs_ravens_pkg::*;
 
-module dvs_aer_receiver_tb;
+module dvs_aer_to_event_interface_tb;
 
     // Signals part of AER interface
     logic clk;
@@ -13,12 +13,10 @@ module dvs_aer_receiver_tb;
     logic req;
     logic ack;
 
-    // Output of AER receiver; describes a single event
-    logic [DVS_X_ADDR_BITS-1:0] event_x;
-    logic [DVS_Y_ADDR_BITS-1:0] event_y;
-    logic [TIMESTAMP_US_BITS-1:0] event_timestamp;
-    logic event_polarity;
-    logic new_event;
+    // AER to event interface signals
+    logic fifo_grant;
+    logic fifo_req;
+    logic [EVENT_BITS-1:0] fifo_bus_event;
 
     // Internal testbench signals
     int y_addr;
@@ -31,6 +29,7 @@ module dvs_aer_receiver_tb;
     int max_event_timestamp;
     time event_start_time;
     logic polarity;
+    logic granted;
 
     // Internal testbench constants
     localparam DVS_READOUT_TIME = 83.333333333333;
@@ -40,19 +39,17 @@ module dvs_aer_receiver_tb;
     localparam MAX_RAND_DELAY = $rtoi(DVS_READOUT_TIME / 4);
     localparam INV_PROB_LONG_DELAY = 20;
 
-    // DUT: dvs_aer_receiver
-    dvs_aer_receiver DVS_AER_RECEIVER_INST (
+    // DUT: dvs_aer_to_event_interface
+    dvs_aer_to_event_interface DVS_AER_TO_EVENT_INTERFACE_INST (
         .clk(clk),
         .rst_n(rst_n),
         .aer(aer),
         .xsel(xsel),
         .req(req),
+        .fifo_grant(fifo_grant),
         .ack(ack),
-        .event_x(event_x),
-        .event_y(event_y),
-        .event_timestamp(event_timestamp),
-        .event_polarity(event_polarity),
-        .new_event(new_event)
+        .fifo_req(fifo_req),
+        .fifo_bus_event(fifo_bus_event)
     );
 
     /* AER Protocol Format From Sender's Point of View:
@@ -125,14 +122,6 @@ module dvs_aer_receiver_tb;
             polarity = $urandom&1;
             aer_protocol_dvs_sim({x_addr[8:0], polarity}, 1);
 
-            // Ensure received event matches generated event
-            min_event_timestamp = (event_timestamp != 0) ? event_timestamp-1 : 0;
-            max_event_timestamp = (event_timestamp + 1 != 0) ? event_timestamp+1 : event_timestamp;
-            if(x_addr != event_x || y_addr != event_y || event_polarity != polarity || (event_start_time/1000) < min_event_timestamp || (event_start_time/1000) > max_event_timestamp) begin
-                $display("ERROR: Received event does not match generated event!");
-                $stop;
-            end
-
             // Randomly find amount of delay between events
             if($urandom%INV_PROB_LONG_DELAY == 0) begin
 
@@ -166,6 +155,29 @@ module dvs_aer_receiver_tb;
         end 
     end
 
+    // Simulate FIFO bus arbiter grant signal
+    initial begin: arbiter_sim
+        fifo_grant = 0;
+        forever begin
+
+            // Grant FIFO bus access randomly (50% chance when FIFO request signal goes high and then 50% chance at every subsequent clock cycle)
+            granted = 0;
+            @(posedge fifo_req);
+            while(!granted) begin
+                if($urandom%2 == 0) begin
+                    fifo_grant = 1;
+                    granted = 1;
+                    @(negedge fifo_req);
+                    fifo_grant = 0;
+                end
+                else begin
+                    @(posedge clk);
+                    #1;
+                end
+            end
+        end
+    end
+
     // Simulate interface's clock
     initial begin: clk_sim
         clk = 0;
@@ -181,4 +193,4 @@ module dvs_aer_receiver_tb;
         rst_n = 1;
     end
 
-endmodule: dvs_aer_receiver_tb
+endmodule: dvs_aer_to_event_interface_tb

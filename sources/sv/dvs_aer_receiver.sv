@@ -17,9 +17,14 @@ module dvs_aer_receiver
         // AER interface outputs
         output logic ack,
 
-        // Sampled and stored valid AER data of most recently received event
-        output logic [9:0] aer_rx,
-	    output logic xsel_rx
+        // Output information that describes a single event
+        output logic [DVS_X_ADDR_BITS-1:0] event_x,
+        output logic [DVS_Y_ADDR_BITS-1:0] event_y,
+        output logic [TIMESTAMP_US_BITS-1:0] event_timestamp,
+        output logic event_polarity,
+
+        // Output control information
+        output logic new_event
     );
 
     enum {WAIT_FOR_REQ_ASSERT, DELAY_50NS, RECEIVE_DATA, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
@@ -29,6 +34,9 @@ module dvs_aer_receiver
     localparam CLK_CYCLES_50NS = (50/CLK_PERIOD_NS);
     localparam REQ_COUNT_50NS = (CLK_CYCLES_50NS > 2) ? CLK_CYCLES_50NS - 2 : 0;
 
+    logic [DVS_Y_ADDR_BITS-1:0] y_addr;
+    logic [TIMESTAMP_US_BITS-1:0] timestamp_us;
+    logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles;
     logic [$clog2(REQ_COUNT_50NS):0] req_count;
     logic [9:0] aer_mid_sync, aer_synced;
     logic xsel_mid_sync, xsel_synced;
@@ -77,7 +85,7 @@ module dvs_aer_receiver
     end
 
     // Counter based timer used to ensure delay of ~50ns between REQ and reading the AER data (only used in DELAY_50NS FSM state)
-    always_ff @(posedge clk, negedge rst_n) begin: rec_timer
+    always_ff @(posedge clk, negedge rst_n) begin: rec_req_delay_counter
         if(!rst_n || cur_fsm_state != DELAY_50NS) begin
             req_count <= REQ_COUNT_50NS;
         end
@@ -86,20 +94,50 @@ module dvs_aer_receiver
         end
     end
 
-    // On FSM transition into the RECEIVE_DATA state, sample and store input aer data (after double FF sync)
-    always_ff @(posedge clk, negedge rst_n) begin: rec_read_aer_into_reg
+    // Keep track of the current timestamp in terms of number of clock cycles
+    always_ff @(posedge clk, negedge rst_n) begin: rec_timestamp_counter
         if(!rst_n) begin
-            aer_rx <= 0;
-            xsel_rx <= 0;
+            timestamp_clk_cycles <= 0;
         end
         else begin
+            timestamp_clk_cycles <= timestamp_clk_cycles + 1;
+        end
+    end
+
+    // On FSM transition into the RECEIVE_DATA state, sample and store event data using double FF synced AER data
+    always_ff @(posedge clk, negedge rst_n) begin: rec_sample_aer_event_data
+        if(!rst_n) begin
+            y_addr <= 0;
+            timestamp_us <= 0;
+            event_x <= 0;
+            event_y <= 0;
+            event_timestamp <= 0;
+            event_polarity <= 0;
+            new_event <= 0;
+        end
+        else begin
+
+            // Only sample AER data on FSM transition into RECEIVE_DATA state
             if(next_fsm_state == RECEIVE_DATA) begin
-                aer_rx <= aer_synced;
-		        xsel_rx <= xsel_synced;
+
+                // Read in Y address and find the timestamp in microseconds for every subsequently read event at this Y address
+                if(xsel_synced == 0) begin
+                    y_addr <= aer_synced[DVS_Y_ADDR_BITS-1:0];
+                    timestamp_us <= timestamp_clk_cycles / CLK_PERIOD_US_DIVISOR;
+                    new_event <= 0;
+                end
+
+                // Set event signals when reading in an X address and polarity using previously read Y address and its timestamp in microseconds
+                else begin
+                    event_x <= aer_synced[DVS_X_ADDR_BITS:1];
+                    event_y <= y_addr;
+                    event_timestamp <= timestamp_us;
+                    event_polarity <= aer_synced[0];
+                    new_event <= 1;
+                end
             end
             else begin
-                aer_rx <= aer_rx;
-                xsel_rx <= xsel_rx;
+                new_event <= 0;
             end
         end
     end
@@ -159,34 +197,7 @@ module dvs_aer_receiver
         endcase
     end
 
-    // Receiver state machine output combinational logic
-    always_comb begin: rec_fsm_output
-        unique case(cur_fsm_state)
-            
-            // While waiting until the DVS camera sender asserts REQ, deassert ACK
-            WAIT_FOR_REQ_ASSERT: begin
-                ack = 0;
-            end
-
-            DELAY_50NS: begin
-                ack = 0;
-            end
-
-            // Receive AER data and ensure ACK is deasserted
-            RECEIVE_DATA: begin
-                ack = 0;
-            end
-
-            // While waiting until the DVS camera sender deasserts REQ, assert ACK
-            WAIT_FOR_REQ_DEASSERT: begin
-                ack = 1;
-            end
-
-            // In case of an invalid state, ensure all signals are at their safest default settings for restarting this AER protocol
-            default: begin
-                ack = 0;
-            end
-        endcase
-    end
+    // Receiver state machine output combinational logic; only assert ACK when receiver has received AER data and is waiting for the sender to deassert REQ
+    assign ack = (cur_fsm_state == WAIT_FOR_REQ_DEASSERT || cur_fsm_state == RECEIVE_DATA) ? 1 : 0;
 
 endmodule: dvs_aer_receiver
