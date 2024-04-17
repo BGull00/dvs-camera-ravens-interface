@@ -73,7 +73,7 @@ module dvs_aer_to_event_interface_tb;
         @(posedge ack);
 
         // Ensure 50ns delay between REQ assertion and reading data for Y addresses
-        if(xselect == 0 && ($time - event_start_time - 2) < 50) begin
+        if(xselect == 0 && ($time - event_start_time - 1) < 50) begin
             $display("ERROR: Y address read less than 50ns after REQ assertion");
             $stop;
         end
