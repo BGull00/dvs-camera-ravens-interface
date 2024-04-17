@@ -19,7 +19,7 @@ procedure( changeRefs(newLib oldLib targetView)
   ) ;prog
 ) ;procedure
 
-changeRefs("sram_compiled_20240416_205716_r32_c32_w8" "sram_compiled" "schematic")
-changeRefs("sram_compiled_20240416_205716_r32_c32_w8" "sram_compiled" "layout")
+changeRefs("sram_compiled_20240417_150654_r32_c32_w8" "sram_compiled" "schematic")
+changeRefs("sram_compiled_20240417_150654_r32_c32_w8" "sram_compiled" "layout")
 
 exit

@@ -22,7 +22,7 @@
 
 
 # Print extra information?
-OUTPUT_CONFIG=1
+OUTPUT_CONFIG=0
 VERBOSE=1
 
 # This is checked below, but:
