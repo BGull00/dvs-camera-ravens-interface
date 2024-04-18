@@ -76,7 +76,7 @@ module dvs_aer_to_event_interface
     // Control signal that says whether or not most recently received event has been written to the FIFO
     always_ff @(posedge clk, negedge rst_n) begin: aer_event_interface_event_written
         if(!rst_n) begin
-            event_written <= 0;
+            event_written <= 1;
         end
         else begin
             if(new_event) begin
@@ -108,6 +108,6 @@ module dvs_aer_to_event_interface
     //========================//
 
     // FIFO bus request control signal that is only high when most recently received event needs to be written to the FIFO
-    assert fifo_req = event_written nor event_filtered;
+    assign fifo_req = ~(event_written | event_filtered);
 
 endmodule: dvs_aer_to_event_interface

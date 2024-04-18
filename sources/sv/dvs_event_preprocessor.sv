@@ -34,7 +34,7 @@ module dvs_event_preprocessor
     );
 
     // Module instance used to filter out any events not in the chosen crop region of X addresses in the interval [0, 100) and Y addresses in the interval [0, 100)
-    dvs_event_polarity_filter #(.CROP_WIDTH(100), .CROP_HEIGHT(100), .CROP_CORNER_X(0), .CROP_CORNER_Y(0)) DVS_EVENT_POLARITY_FILTER_INST (
+    dvs_event_crop_filter #(.CROP_WIDTH(100), .CROP_HEIGHT(100), .CROP_CORNER_X(0), .CROP_CORNER_Y(0)) DVS_EVENT_CROP_FILTER_INST (
         .event_x(event_x),
         .event_y(event_y),
         .crop_filter(crop_filter)
@@ -48,6 +48,6 @@ module dvs_event_preprocessor
     assign preprocessed_event = (event_filtered == 0) ? {event_x, event_y, event_polarity, event_timestamp} : 0;
 
     // Filter out any events that did not make it through any one of the preprocessing filters
-    assign event_filtered = polarity_filter or crop_filter;
+    assign event_filtered = polarity_filter | crop_filter;
 
 endmodule: dvs_event_preprocessor

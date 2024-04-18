@@ -25,11 +25,11 @@ module dvs_aer_to_event_interface_tb;
     int min_remain_time_between_events;
     int delay_between_events;
     int event_time;
-    int min_event_timestamp;
-    int max_event_timestamp;
     time event_start_time;
     logic polarity;
     logic granted;
+    logic [EVENT_BITS-1:0] min_fifo_event;
+    logic [EVENT_BITS-1:0] max_fifo_event;
 
     // Internal testbench constants
     localparam DVS_READOUT_TIME = 83.333333333333;
@@ -164,6 +164,7 @@ module dvs_aer_to_event_interface_tb;
             granted = 0;
             @(posedge fifo_req);
             while(!granted) begin
+		#1;
                 if($urandom%2 == 0) begin
                     fifo_grant = 1;
                     granted = 1;
@@ -172,7 +173,6 @@ module dvs_aer_to_event_interface_tb;
                 end
                 else begin
                     @(posedge clk);
-                    #1;
                 end
             end
         end
