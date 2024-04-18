@@ -1,0 +1,44 @@
+*pexRulesFile: /research/pdk/cmos10lpe_pdk/ibm_pdk/cmos10lpe/V1.5.0.0RF/Calibre/xRC/cmos10lpe_nominal_4_02_00_00_LB_detailed.xrc.cal
+*pexRunDir: /home/mdickey6/cmos10lpe/calibre
+*pexLayoutGetFromViewer: 1
+*pexSourceGetFromViewer: 1
+*pexPEXPowerNetNames: vdd! VDD! vcc VCC vdd VDD vddh VDDH vdd_h VDD_H vddl VDDL vdd_l VDD_L avdd AVDD vdda VDDA vdd1 VDD1 vdd2 VDD2 vdd0v6 vdd1v0 vdd1v2 vdd2v5 vdd3v3 VDD0V6 VDD1V0 VDD1V2 VDD2V5 VDD3V3 VDD0v6 VDD1v0 VDD1v2 VDD2v5 VDD3v3
+*pexPEXGroundNetNames: gnd! GND! gnd GND vss VSS agnd AGND gnda GNDA
+*pexIncludeCmdsType: SVRF
+*pexSVRFCmds: {LAYOUT CASE YES} {SOURCE CASE YES} {}
+*pexEnvVars: {TECHDIR /research/pdk/cmos10lpe_pdk/ibm_pdk/cmos10lpe/V1.5.0.0RF/Calibre/ Runset} {BURN_IN YES Runset} {IOTYPE INLINE Runset} {ANTENNA_RESULTS antenna.results Runset} {DESIGN_TYPE CELL Runset} {BEOL_STACK 4_02_00_00_LB Runset} {CHECK_NUMBER_OF_FINGERS TRUE Runset} {CHECK_TIEDOWN_PARAM TRUE Runset} {IGNORE_PCCRIT_PARAM FALSE Runset} {IGNORE_W_TOLERANCE FALSE Runset} {NO_TRACE_PROPERTY FALSE Runset} {PEX_RUN TRUE Runset} {REDUCE_SERIES_MOS FALSE Runset} {REDUCE_SPLIT_GATES FALSE Runset} {WITH_RR_HFO TRUE Runset} {WITH_R4_HFO TRUE Runset} {WITH_R1_HFO TRUE Runset}
+*pexPexViewPexNetlist: 0
+*pexPexNetlistFormat: CALIBREVIEW
+*pexReportOptions: A B C D FX G S
+*pexPexReport: 1
+*pexPowerNames: vdd! VDD! vcc VCC vdd VDD vddh VDDH vdd_h VDD_H vddl VDDL vdd_l VDD_L avdd AVDD vdda VDDA vdd1 VDD1 vdd2 VDD2 vdd0v6 vdd1v0 vdd1v2 vdd2v5 vdd3v3 VDD0V6 VDD1V0 VDD1V2 VDD2V5 VDD3V3 VDD0v6 VDD1v0 VDD1v2 VDD2v5 VDD3v3
+*pexGroundNames: gnd! GND! gnd GND vss VSS agnd AGND gnda GNDA
+*pexSVDBDir: /home/mdickey6/cmos10lpe/calibre/svdb
+*pexSVDBtxref: 1
+*pexStartRVE: 1
+*pexTemplate_LR: %L-%l-%V.lvs.report
+*pexTemplate_PR: %L-%l-%V.pex.report
+*pexTemplate_PN: %L-%l-%V.pex.netlist
+*pexTemplate_SP: %L-%s.src.net
+*pexTemplate_SV: /home/mdickey6/cmos10lpe/calibre/svdb
+*pexPexIncrementalPDB: 1
+*cmnWarnLayoutOverwrite: 0
+*cmnWarnSourceOverwrite: 0
+*cmnPromptSaveRunset: 0
+*cmnPromptSaveCustomizationChanges: 0
+*cmnShowOptions: 1
+*cmnSaveRunsetChanges: 0
+*cmnUseCBforRVE: 0
+*cmnVConnectNamesState: SOME
+*cmnVConnectNames: vdd! gnd!
+*cmnRunHier: 2
+*cmnRunMT: 1
+*cmnRunHyper: 1
+*cmnRunHyperCompare: 1
+*cmnIgnoreExportInBatch: 0
+*cmnTemplate_DF: %L-%l-%V.def
+*cmnTemplate_LP: %L-%l-%V.calibre.db
+*cmnTemplate_RL: /research/pdk/cmos10lpe_pdk/ibm_pdk/cmos10lpe/V1.5.0.0RF/Calibre/xRC/cmos10lpe_nominal_4_02_00_00_LB_detailed.xrc.cal
+*cmnTemplate_RN: /home/mdickey6/cmos10lpe/calibre
+*cmnFDIUseCellMap: 1
+*cmnFDICellMapFile: /research/pdk/cmos10lpe_pdk/ibm_pdk/cmos10lpe/V1.5.0.0RF/Calibre/xRC/cmos10lpe.calibre.cellmap

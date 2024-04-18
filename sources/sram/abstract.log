@@ -1,0 +1,18 @@
+INFO (ABS-19020): Starting @(#)$CDS: Abstract version 6.1.8-64b 09/28/2022 10:57 (cpgsrv12) $, sub-version  IC6.1.8-64b.500.28 , on  2.6.32-431.11.2.el6.x86_64
+INFO (ABS-10500): Library sram_compiled_20240416_205716_r32_c32_w8 Opening /home/mdickey6/ece551/dvs-camera-ravens-interface/sources/sram_compiler/compiler-runs/run-20240416_205716-r32-c32-w8/library/sram_compiled_20240416_205716_r32_c32_w8
+Loading IBM PDK cmos10lpe Procedures for Cadence Version "6.1.8-64b"
+cmos10lpe setting techfile rules
+INFO (ABS-10011): Verifying Technology Data ...
+INFO (ABS-10012): Layer summary: 6 metal layer(s), 5 via layer(s), 2 poly layer(s), and 1 diff layer(s) found
+INFO (ABS-20023): Via summary: 8 valid via(s) found
+INFO (ABS-10501): Library sram_compiled_20240416_205716_r32_c32_w8 Loading 9 cells
+INFO (ABS-10502): Library sram_compiled_20240416_205716_r32_c32_w8 Loaded 9 cells
+INFO (ABS-10507): Library sram_compiled_20240416_205716_r32_c32_w8 opened
+INFO (ABS-19046): Abstract Generator no longer uses the '.abstract.options' file in the selected design library as the default options file. The new default file location is <current working directory>/.abstract/<library name>/.abstract.options. 
+INFO (ABS-19047): Abstract Generator no longer uses the '.abstract.status' file present in the selected lib/cell directory . The new default file location for each cell is <current working directory>/.abstract/<library name>/cellStatus/.abstract.status.<cellName>. 
+*WARNING* (ABS-20061): Abstract Generator will ignore the value of the 'ReadOnlyTechnology' option and will not save the layer-purpose pairs in the technology file. Support for the 'ReadOnlyTechnology' option will be removed in a future release.
+INFO (ABS-10508): Library sram_compiled_20240416_205716_r32_c32_w8 closing /home/mdickey6/ece551/dvs-camera-ravens-interface/sources/sram_compiler/compiler-runs/run-20240416_205716-r32-c32-w8/library/sram_compiled_20240416_205716_r32_c32_w8
+INFO (ABS-10511): Saving current option settings for library sram_compiled_20240416_205716_r32_c32_w8 to the file /home/mdickey6/ece551/dvs-camera-ravens-interface/sources/sram/.abstract/sram_compiled_20240416_205716_r32_c32_w8/.abstract.options.
+INFO (ABS-10515): Library sram_compiled_20240416_205716_r32_c32_w8 closed
+INFO (ABS-10529): Abstract Generation finished for Library sram_compiled_20240416_205716_r32_c32_w8 
+INFO (ABS-19021): Finished sub-version  IC6.1.8-64b.500.28 

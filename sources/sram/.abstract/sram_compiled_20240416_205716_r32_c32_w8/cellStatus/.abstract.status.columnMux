@@ -1,0 +1,7 @@
+cUiMoveCellToBin {columnMux} {Ignore}
+cUiSelectCellP {columnMux}
+cUiSetViewStatus {columnMux} {layout} {1}
+cUiSetViewStatus {columnMux} {logical} {0}
+cUiSetViewStatus {columnMux} {abstract.pin} {0}
+cUiSetViewStatus {columnMux} {abstract.ext} {0}
+cUiSetViewStatus {columnMux} {abstract} {0}

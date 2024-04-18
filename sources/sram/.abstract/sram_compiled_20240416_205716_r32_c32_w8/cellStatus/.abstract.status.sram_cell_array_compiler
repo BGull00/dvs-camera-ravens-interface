@@ -1,0 +1,7 @@
+cUiMoveCellToBin {sram_cell_array_compiler} {Ignore}
+cUiSelectCellP {sram_cell_array_compiler}
+cUiSetViewStatus {sram_cell_array_compiler} {layout} {1}
+cUiSetViewStatus {sram_cell_array_compiler} {logical} {0}
+cUiSetViewStatus {sram_cell_array_compiler} {abstract.pin} {0}
+cUiSetViewStatus {sram_cell_array_compiler} {abstract.ext} {0}
+cUiSetViewStatus {sram_cell_array_compiler} {abstract} {0}

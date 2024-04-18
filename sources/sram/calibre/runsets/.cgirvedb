@@ -1,0 +1,75 @@
+DRC /data1/salam12/cmos10lpe/calibre/dRNA-rna_controller-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dRNA-ncore-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb final_m110
+DRC /data1/salam12/cmos10lpe/calibre/neuropipe_submissions-final_m110-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb frame_utk_neuropipe_6x5_110pad
+LVS /data1/salam12/cmos10lpe/calibre/svdb final_d64
+DRC /data1/salam12/cmos10lpe/calibre/neuropipe_submissions-final_d64-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb frame_utk_neuropipe_3p8x3p75_64pad
+LVS /data1/salam12/cmos10lpe/calibre/svdb pad_dig_inp2
+LVS /data1/salam12/cmos10lpe/calibre/svdb output_buf2
+TXT /data1/salam12/cmos10lpe/calibre/stdio_10lpe-frame_utk_neuropipe_3p8x3p75_64pad-layout.lvs.report
+TXT /data1/salam12/cmos10lpe/calibre/stdio_10lpe-frame_utk_neuropipe_3p8x3p75_64pad-layout.lvs.cal
+TXT /data1/salam12/cmos10lpe/calibre/stdio_10lpe-frame_utk_neuropipe_3p8x3p75_64pad-layout.lvs.report.log
+TXT /data1/salam12/cmos10lpe/calibre/stdio_10lpe-frame_utk_trial-layout.lvs.report
+LVS /data1/salam12/cmos10lpe/calibre/svdb frame_utk_trial
+LVS /data1/salam12/cmos10lpe/calibre/svdb top_digital
+DRC /data1/salam12/cmos10lpe/calibre/digital_chip-top_digital-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/ravens_RNA-ravens_rna_neuropipe-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb ravens_rna_neuropipe
+TXT /data1/salam12/cmos10lpe/calibre/digital_chip-top_digital-layout.lvs.report
+LVS /data1/salam12/cmos10lpe/calibre/svdb mrna_cluster
+LVS /data1/salam12/cmos10lpe/calibre/svdb cluster
+DRC /data1/salam12/cmos10lpe/calibre/dRNA_cluster-cluster-layout.drc.results
+TXT /data1/salam12/cmos10lpe/calibre/ravens_RNA-ravens_rna_neuropipe-layout.lvs.report
+DRC /data1/salam12/cmos10lpe/calibre/mRNA-mrna_controller-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb mrna_controller
+LVS /data1/salam12/cmos10lpe/calibre/svdb rna_spike_enc
+DRC /data1/salam12/cmos10lpe/calibre/mRNA-rna_spike_enc-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/mRNA-mrna_r1_router-layout.drc.results
+TXT /data1/salam12/cmos10lpe/calibre/mRNA-mrna_r1_router-layout.drc.cal
+LVS /data1/salam12/cmos10lpe/calibre/svdb mrna_r1_router
+DRC /data1/salam12/cmos10lpe/calibre/mRNA-mrna_r1_spike_encoder-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb mrna_r1_spike_encoder
+LVS /data1/salam12/cmos10lpe/calibre/svdb ncore
+LVS /data1/salam12/cmos10lpe/calibre/svdb r1_router
+LVS /data1/salam12/cmos10lpe/calibre/svdb rna_txr
+DRC /data1/salam12/cmos10lpe/calibre/dRNA-rna_spike_enc-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb rna_controller
+TXT /data1/salam12/cmos10lpe/calibre/dRNA-cluster-layout.lvs.report
+DRC /data1/salam12/cmos10lpe/calibre/dRNA-rna_txr-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dRNA-r1_router-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/data_mem_32kB-mem_interface_dmem-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb mem_interface_imem
+DRC /data1/salam12/cmos10lpe/calibre/instr_mem_32kB-mem_interface_imem-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb mem_interface_dmem
+LVS /data1/salam12/cmos10lpe/calibre/svdb riscv_top
+DRC /data1/salam12/cmos10lpe/calibre/risc_v-riscv_top-layout.drc.results
+TXT /data1/salam12/cmos10lpe/calibre/risc_v-riscv_top-layout.lvs.report
+TXT /data1/salam12/cmos10lpe/calibre/instr_mem_32kB-mem_interface_imem-layout.lvs.report
+DRC /data1/salam12/cmos10lpe/calibre/stdlib_10lpe-xor2_x2-layout.drc.results
+TXT /data1/salam12/cmos10lpe/calibre/dRNA-ncore-layout.drc.cal
+TXT /data1/salam12/cmos10lpe/calibre/data_mem_32kB-mem_interface_dmem-layout.lvs.report
+DRC /data1/salam12/cmos10lpe/calibre/stdlib_10lpe-addfi_x2-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb hw_enc_top
+DRC /data1/salam12/cmos10lpe/calibre/test_structures-hw_enc_top-layout.drc.results
+TXT /data1/salam12/cmos10lpe/calibre/risc_v-mem_interface_dmem-layout.lvs.report
+TXT /data1/salam12/cmos10lpe/calibre/risc_v-mem_interface_dmem-layout.erc.summary
+TXT /data1/salam12/cmos10lpe/calibre/risc_v-mem_interface_dmem-layout.lvs.report.ext
+DRC /data1/salam12/cmos10lpe/calibre/risc_v-mem_interface_dmem-layout.drc.results
+LVS /data1/salam12/cmos10lpe/calibre/svdb sram_compiled_array
+TXT /data1/salam12/cmos10lpe/calibre/risc_v-mem_interface_dmem-layout.lvs.report.log
+DRC /data1/salam12/cmos10lpe/calibre/risc_v-mem_interface_imem-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dRNA-ncore_trial_array-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/sram_8kB_512x128x8-sram_compiled_array-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/hasib-mem_interface_dmem-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/hasib-mem_interface_imem-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/hasib-rna_spike_enc-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dma_ctrl-top_RTL-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dma_ctrl-crossbar-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dma_ctrl-axi_wrap_proc-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dma_ctrl-axi_wrap_dmareg-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dma_ctrl-axi_wrap_dma-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/dma_ctrl-axi_wrap_mem-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/sram_compiled_16x32x8-sram_compiled_array-layout.drc.results
+DRC /data1/salam12/cmos10lpe/calibre/hasib-dma_ctrl-layout.drc.results

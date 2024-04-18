@@ -1,0 +1,24 @@
+*drcRulesFile: @TECHLIB_DIR_PATH@/DRC/cmos10lpe.drc.cal
+*drcRunDir: @CALIBRE_DATA_PATH@
+*drcLayoutGetFromViewer: 1
+*drcEnvVars: {TECHDIR @TECHLIB_DIR_PATH@/ Runset} {RECOMMENDED_RULES NO Runset} {BURN_IN YES Runset} {IOTYPE INLINE Runset} {ANTENNA_RESULTS antenna.results Runset} {DESIGN_TYPE ESD_ONLY Runset} {BEOL_STACK @BEOL_STACK@ Runset} {WITH_RR_HFO TRUE Runset} {WITH_R4_HFO TRUE Runset} {WITH_R1_HFO TRUE Runset}
+*drcRunsetType: DRC
+*drcCellName: 0
+*drcViewSummary: 0
+*drcTemplate_RD: %L-%l-%V.drc.results
+*drcTemplate_SF: %L-%l-%V.drc.summary
+*drcDRCRunIncrDRC: 0
+*drcIncrDRCRunMT: 1
+*drcIncrDRCRunHyper: 1
+*cmnWarnLayoutOverwrite: 0
+*cmnPromptSaveRunset: 0
+*cmnShowOptions: 1
+*cmnSaveRunsetChanges: 0
+*cmnRunMT: 1
+*cmnRunHyper: 1
+*cmnTemplate_CF: %L-%l-%V.drc.cal
+*cmnTemplate_DF: %L-%l-%V.def
+*cmnTemplate_LP: %L-%l-%V.calibre.db
+*cmnTemplate_RL: @TECHLIB_DIR_PATH@/DRC/cmos10lpe.drc.cal
+*cmnTemplate_RN: @CALIBRE_DATA_PATH@
+

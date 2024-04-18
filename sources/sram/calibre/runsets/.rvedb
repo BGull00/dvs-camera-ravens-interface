@@ -1,0 +1,19 @@
+*layoutServer: Cadence:Virtuoso
+*schematicServer: Cadence:Composer
+*cmnShowHistogramToolbar: 1
+*cmnShowInfo: 1
+*cmnUseDbSpecificOptions: 0
+*cmnUseUserDbSpecificOptions: 0
+*drcExploreSortColumn: {Results {Check / Cell}}
+*drcExploreSortDirection: {Results up}
+*drcLastViewedHierarchy: Check Cell
+*drcShowEmptyChecks: 0
+*drcView: Details
+*drcViewByCell: 0
+*drcViewCellCoords: 0
+*drcRveWinPos: last
+*lvsRveWinPos: last
+*lvsDiscrepancySortedState: {} none delta
+*lvsSchematicShowHierarchy: 0
+*lvsSchematicShowNetlistText: 0
+*lvsShowSchematicOnHighlight: 0

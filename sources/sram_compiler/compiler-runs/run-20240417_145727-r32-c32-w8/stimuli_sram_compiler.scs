@@ -1,0 +1,21 @@
+simulator lang=spectre
+Vclk (clk 0) vsource type=pulse val0=0 val1=1.0 period=40n delay=0 rise=0.1n fall=0.1n width=20n
+Vwrite_en (write_en 0) vsource type=pulse val0=0 val1=1.0 period=320n delay=0 rise=0.1n fall=0.1n width=160n
+Vsense_en (sense_en 0) vsource type=pulse val0=0 val1=1.0 period=40n delay=185n rise=0.1n fall=0.1n width=10n
+Vaddr0 (addr0 0) vsource type=pulse val0=0 val1=1.0 period=80n delay=40n rise=0.1n fall=0.1n width=40n
+Vaddr1 (addr1 0) vsource type=pulse val0=0 val1=1.0 period=160n delay=40n rise=0.1n fall=0.1n width=80n
+Vaddr2 (addr2 0) vsource type=dc dc=0
+Vaddr3 (addr3 0) vsource type=dc dc=0
+Vaddr4 (addr4 0) vsource type=dc dc=0
+Vaddr5 (addr5 0) vsource type=dc dc=0
+Vaddr6 (addr6 0) vsource type=dc dc=0
+Vdin0 (din0 0) vsource type=pulse val0=0 val1=1.0 period=80n delay=40n rise=0.1n fall=0.1n width=40n
+Vdin1 (din1 0) vsource type=pulse val0=0 val1=1.0 period=160n delay=40n rise=0.1n fall=0.1n width=80n
+Vdin2 (din2 0) vsource type=pulse val0=0 val1=1.0 period=240n delay=40n rise=0.1n fall=0.1n width=120n
+Vdin3 (din3 0) vsource type=pulse val0=0 val1=1.0 period=320n delay=40n rise=0.1n fall=0.1n width=160n
+Vdin4 (din4 0) vsource type=pulse val0=0 val1=1.0 period=400n delay=40n rise=0.1n fall=0.1n width=200n
+Vdin5 (din5 0) vsource type=pulse val0=0 val1=1.0 period=480n delay=40n rise=0.1n fall=0.1n width=240n
+Vdin6 (din6 0) vsource type=pulse val0=0 val1=1.0 period=560n delay=40n rise=0.1n fall=0.1n width=280n
+Vdin7 (din7 0) vsource type=pulse val0=0 val1=1.0 period=640n delay=40n rise=0.1n fall=0.1n width=320n
+Vvdd (vdd! 0) vsource type=dc dc=1.0
+Vgnd (gnd! 0) vsource type=dc dc=0

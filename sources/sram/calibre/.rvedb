@@ -1,0 +1,26 @@
+*cmnHighlightCellMap: {dma_ctrl Layout dma_ctrl hasib layout} {rna_controller Schematic rna_controller dRNA schematic} {ravens_rna_neuropipe Schematic ravens_rna_neuropipe ravens_RNA schematic} {mrna_controller Schematic mrna_controller mRNA schematic} {rna_controller Layout rna_controller dRNA layout} {axi_wrap_proc Layout axi_wrap_proc dma_ctrl layout} {axi_wrap_dmareg Layout axi_wrap_dmareg dma_ctrl layout} {mrna_r1_router Schematic mrna_r1_router mRNA schematic} {cluster Schematic cluster dRNA_cluster schematic} {rna_txr Layout rna_txr dRNA layout} {ncore_trial_array Layout ncore_trial_array dRNA layout} {final_m110 Layout final_m110 neuropipe_submissions layout} {mrna_r1_router Layout mrna_r1_router mRNA layout} {hw_enc_top Schematic hw_enc_top test_structures schematic} {axi_wrap_mem Layout axi_wrap_mem dma_ctrl layout} {mem_interface_imem Schematic mem_interface_imem instr_mem_32kB schematic} {frame_utk_trial Layout frame_utk_trial stdio_10lpe layout} {riscv_top Layout riscv_top risc_v layout} {mrna_r1_spike_encoder Layout mrna_r1_spike_encoder mRNA layout} {frame_utk_neuropipe_3p8x3p75_64pad Layout frame_utk_neuropipe_3p8x3p75_64pad stdio_10lpe layout} {r1_router Layout r1_router dRNA layout} {rna_spike_enc Schematic rna_spike_enc mRNA schematic} {mem_interface_dmem Schematic mem_interface_dmem data_mem_32kB schematic} {riscv_top Schematic riscv_top risc_v schematic} {r1_router Schematic r1_router dRNA schematic} {crossbar Layout crossbar dma_ctrl layout} {pad_dig_inp2 Layout pad_dig_inp2 stdio_10lpe layout} {ncore Schematic ncore dRNA schematic} {top_RTL Layout top_RTL dma_ctrl layout} {rna_txr Schematic rna_txr dRNA schematic} {top_digital Schematic top_digital digital_chip schematic} {pad_dig_inp2 Schematic pad_dig_inp2 stdio_10lpe schematic} {frame_utk_trial Schematic frame_utk_trial stdio_10lpe schematic} {final_d64 Layout final_d64 neuropipe_submissions layout} {mrna_cluster Layout mrna_cluster mRNA_cluster layout} {final_d64 Schematic final_d64 neuropipe_submissions schematic} {final_m110 Schematic final_m110 neuropipe_submissions schematic} {frame_utk_neuropipe_3p8x3p75_64pad Schematic frame_utk_neuropipe_3p8x3p75_64pad stdio_10lpe schematic} {sram_compiled_array Schematic sram_compiled_array sram_8kB_512x128x8 schematic} {top_digital Layout top_digital digital_chip layout} {rna_spike_enc Layout rna_spike_enc mRNA layout} {mrna_controller Layout mrna_controller mRNA layout} {mrna_cluster Schematic mrna_cluster mRNA_cluster schematic} {axi_wrap_dma Layout axi_wrap_dma dma_ctrl layout} {ravens_rna_neuropipe Layout ravens_rna_neuropipe ravens_RNA layout} {mrna_r1_spike_encoder Schematic mrna_r1_spike_encoder mRNA schematic} {mem_interface_imem Layout mem_interface_imem instr_mem_32kB layout} {hw_enc_top Layout hw_enc_top test_structures layout} {ncore Layout ncore dRNA layout} {frame_utk_neuropipe_6x5_110pad Schematic frame_utk_neuropipe_6x5_110pad stdio_10lpe schematic} {mem_interface_dmem Layout mem_interface_dmem data_mem_32kB layout} {cluster Layout cluster dRNA_cluster layout} {frame_utk_neuropipe_6x5_110pad Layout frame_utk_neuropipe_6x5_110pad stdio_10lpe layout} {sram_compiled_array Layout sram_compiled_array sram_8kB_512x128x8 layout}
+*layoutServerPort: 5003
+*layoutServer: Cadence:Virtuoso
+*cmnMainWinGeom: 1062x907+603+87
+*schematicServerPort: 5003
+*schematicServer: Cadence:Composer
+*cmnShowHistogramToolbar: 1
+*cmnShowInfo: 1
+*cmnUseDbSpecificOptions: 1
+*cmnUseUserDbSpecificOptions: 1
+*cmnViewName: View-1691765994588287
+*drcExploreSortColumn: {Results {Check / Cell}}
+*drcExploreSortDirection: {Results up}
+*drcExploreTreeHeight: 364
+*drcLastViewedHierarchy: Check Cell
+*drcRveWinPos: last
+*drcShowEmptyChecks: 0
+*drcView: Details
+*drcViewCellCoords: 0
+*lvsDiscrepancySortedState: {} none delta
+*lvsRveWinPos: last
+*lvsSchematicShowHierarchy: 0
+*lvsSchematicShowNetlistText: 0
+*lvsShowSchematicOnHighlight: 0
+*lvsViewComparisonResultsBy: type
+

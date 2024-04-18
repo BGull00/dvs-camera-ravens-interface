@@ -1,0 +1,8 @@
+absSkillMode()
+absSetLibrary("sram_compiled_20240416_205716_r32_c32_w8")
+absSelectCellFrom("sram_cell_array_compiler" "sram_cell_array_compiler")
+absSelectCellFrom("colDecoderUnit_compiler" "rowDecoder_compiler1")
+absMoveSelectedCellsToBin("Ignore")
+absSelectCellFrom("sram_compiled_array" "sram_compiled_array")
+absMoveSelectedCellsToBin("Block")
+absExit()
