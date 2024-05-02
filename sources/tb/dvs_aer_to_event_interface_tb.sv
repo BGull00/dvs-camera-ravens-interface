@@ -16,7 +16,7 @@ module dvs_aer_to_event_interface_tb;
     // AER to event interface signals
     logic fifo_grant;
     logic fifo_req;
-    logic fifo_bus_wr;
+    logic fifo_wr_en;
     logic [EVENT_BITS-1:0] fifo_event;
 
     // Internal testbench signals
@@ -50,7 +50,7 @@ module dvs_aer_to_event_interface_tb;
         .fifo_grant(fifo_grant),
         .ack(ack),
         .fifo_req(fifo_req),
-        .fifo_bus_wr(fifo_bus_wr),
+        .fifo_wr_en(fifo_wr_en),
         .fifo_event(fifo_event)
     );
 

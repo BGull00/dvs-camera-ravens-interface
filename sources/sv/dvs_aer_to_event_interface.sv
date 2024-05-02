@@ -22,7 +22,7 @@ module dvs_aer_to_event_interface
 
         // FIFO bus interface outputs
         output logic fifo_req,
-        output logic fifo_bus_wr,
+        output logic fifo_wr_en,
         output logic [EVENT_BITS-1:0] fifo_event
     );
 
@@ -93,16 +93,16 @@ module dvs_aer_to_event_interface
     always_ff @(posedge clk, negedge rst_n) begin: aer_event_interface_fifo_bus_event
         if(!rst_n) begin
             fifo_event <= 0;
-            fifo_bus_wr <= 'z';
+            fifo_wr_en <= 0;
         end
         else begin
             if(fifo_grant) begin
                 fifo_event <= preprocessed_event;
-                fifo_bus_wr <= 1;
+                fifo_wr_en <= 1;
             end
             else begin
                 fifo_event <= fifo_event;
-                fifo_bus_wr <= 'z';
+                fifo_wr_en <= 0;
             end
         end
     end
