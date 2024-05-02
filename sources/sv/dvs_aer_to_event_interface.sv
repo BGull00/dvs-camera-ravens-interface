@@ -22,7 +22,8 @@ module dvs_aer_to_event_interface
 
         // FIFO bus interface outputs
         output logic fifo_req,
-        output logic [EVENT_BITS-1:0] fifo_bus_event
+        output logic fifo_bus_wr,
+        output logic [EVENT_BITS-1:0] fifo_event
     );
 
     // Sampled and stored valid event data of most recently received event from receiver
@@ -88,17 +89,20 @@ module dvs_aer_to_event_interface
         end
     end
 
-    // When granted access to the FIFO bus, write most recently received and preprocessed event to the bus (otherwise, set it to high impedance state)
+    // When granted access to the FIFO bus, write most recently received and preprocessed event to the bus (otherwise, set shared bus write control line to high impedance state)
     always_ff @(posedge clk, negedge rst_n) begin: aer_event_interface_fifo_bus_event
         if(!rst_n) begin
-            fifo_bus_event <= 'z;
+            fifo_event <= 0;
+            fifo_bus_wr <= 'z';
         end
         else begin
             if(fifo_grant) begin
-                fifo_bus_event <= preprocessed_event;
+                fifo_event <= preprocessed_event;
+                fifo_bus_wr <= 1;
             end
             else begin
-                fifo_bus_event <= 'z;
+                fifo_event <= fifo_event;
+                fifo_bus_wr <= 'z';
             end
         end
     end

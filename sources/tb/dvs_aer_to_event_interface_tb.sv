@@ -16,7 +16,8 @@ module dvs_aer_to_event_interface_tb;
     // AER to event interface signals
     logic fifo_grant;
     logic fifo_req;
-    logic [EVENT_BITS-1:0] fifo_bus_event;
+    logic fifo_bus_wr;
+    logic [EVENT_BITS-1:0] fifo_event;
 
     // Internal testbench signals
     int y_addr;
@@ -49,7 +50,8 @@ module dvs_aer_to_event_interface_tb;
         .fifo_grant(fifo_grant),
         .ack(ack),
         .fifo_req(fifo_req),
-        .fifo_bus_event(fifo_bus_event)
+        .fifo_bus_wr(fifo_bus_wr),
+        .fifo_event(fifo_event)
     );
 
     /* AER Protocol Format From Sender's Point of View:
