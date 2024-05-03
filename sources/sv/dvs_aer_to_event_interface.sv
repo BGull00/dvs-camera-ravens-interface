@@ -34,7 +34,7 @@ module dvs_aer_to_event_interface
     logic new_event;
 
     // Event after preprocessing and whether or not it was filtered out
-    logic [EVENT_BITS-1:0] preprocessed_event;
+    logic [EVENT_BITS-1:0] dvs_event;
     logic event_filtered;
 
     logic event_written;
@@ -66,7 +66,7 @@ module dvs_aer_to_event_interface
         .event_y(event_y),
         .event_timestamp(event_timestamp),
         .event_polarity(event_polarity),
-        .preprocessed_event(preprocessed_event),
+        .dvs_event(dvs_event),
         .event_filtered(event_filtered)
     );
 
@@ -97,7 +97,7 @@ module dvs_aer_to_event_interface
         end
         else begin
             if(fifo_grant) begin
-                fifo_event <= preprocessed_event;
+                fifo_event <= dvs_event;
                 fifo_wr_en <= 1;
             end
             else begin
