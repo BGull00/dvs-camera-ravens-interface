@@ -18,23 +18,39 @@ module dvs_ravens
         output logic ack
     );
 
-    // Sampled and stored valid AER data of most recently received event
-    logic [9:0] aer_rx;
-	logic xsel_rx;
+    logic fifo_req_write;
+    logic fifo_req_read;
+    logic fifo_grant_write;
+    logic fifo_grant_read;
+    logic fifo_wr_en;
+    logic fifo_rd_en;
+    logic [EVENT_BITS-1:0] fifo_write_event;
+    logic [EVENT_BITS-1:0] fifo_read_event;
 
     //=========================//
     // Component Instantiation //
     //=========================//
 
-    dvs_aer_receiver DVS_AER_RECEIVER_INST (
+    // Module instance used to receive camera data, preprocess it into an event, and connect it to the FIFO event queue bus
+    dvs_aer_to_event_interface  DVS_AER_TO_EVENT_INTERFACE_INST (
         .clk(clk),
         .rst_n(rst_n),
         .aer(aer),
         .xsel(xsel),
         .req(req),
+        .fifo_grant(fifo_grant_write),
         .ack(ack),
-        .aer_rx(aer_rx),
-        .xsel_rx(xsel_rx)
+        .fifo_req(fifo_req_write),
+        .fifo_wr_en(fifo_wr_en),
+        .fifo_event(fifo_write_event)
     );
+
+    // Module instance used as arbiter for FIFO event queue bus
+    dvs_ravens_arbiter DVS_RAVENS_ARBITER_INST (
+        .req_m1(fifo_req_write),
+        .req_m2(fifo_req_read),
+        .grant_m1(fifo_grant_write),
+        .grant_m2(fifo_grant_read)
+    );  
 
 endmodule: dvs_ravens
