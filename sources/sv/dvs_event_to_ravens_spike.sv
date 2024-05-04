@@ -15,6 +15,10 @@ module dvs_event_to_ravens_spike
     logic [$clog2(DVS_X_ADDR_BITS*DVS_Y_ADDR_BITS)] flat_pxl_ind;
     logic [7:0] flat_pxl_ind_8_bits;
 
+    //========================//
+    // Combinational Circuits //
+    //========================//
+
     // Flattened pixel index is pxls[y_addr][x_addr] = pxls_1d[x_addr + y_addr * DVS_WIDTH_PXLS]
     assign flat_pxl_ind = dvs_event[EVENT_BITS-1 -: DVS_X_ADDR_BITS] + dvs_event[EVENT_BITS-DVS_X_ADDR_BITS-1 -: DVS_Y_ADDR_BITS] * DVS_WIDTH_PXLS;
     
