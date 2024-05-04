@@ -18,6 +18,7 @@ module dvs_ravens
         output logic ack
     );
 
+    logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles;
     logic fifo_req_write;
     logic fifo_req_read;
     logic fifo_grant_write;
@@ -39,10 +40,17 @@ module dvs_ravens
         .xsel(xsel),
         .req(req),
         .fifo_grant(fifo_grant_write),
+        .timestamp_clk_cycles(timestamp_clk_cycles),
         .ack(ack),
         .fifo_req(fifo_req_write),
         .fifo_wr_en(fifo_wr_en),
         .fifo_event(fifo_write_event)
+    );
+
+    clk_timer CLK_TIMER_INST (
+        .clk(clk),
+        .rst_n(rst_n),
+        .timestamp_clk_cycles(timestamp_clk_cycles)
     );
 
     // Module instance used as arbiter for FIFO event queue bus
@@ -51,6 +59,6 @@ module dvs_ravens
         .req_m2(fifo_req_read),
         .grant_m1(fifo_grant_write),
         .grant_m2(fifo_grant_read)
-    );  
+    );
 
 endmodule: dvs_ravens

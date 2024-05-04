@@ -14,6 +14,9 @@ module dvs_aer_receiver
         input logic xsel,
         input logic req,
 
+        // Clock timer input
+        input logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles,
+
         // AER interface outputs
         output logic ack,
 
@@ -36,7 +39,6 @@ module dvs_aer_receiver
 
     logic [DVS_Y_ADDR_BITS-1:0] y_addr;
     logic [TIMESTAMP_US_BITS-1:0] timestamp_us;
-    logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles;
     logic [$clog2(REQ_COUNT_50NS):0] req_count;
     logic [9:0] aer_mid_sync, aer_synced;
     logic xsel_mid_sync, xsel_synced;
@@ -91,16 +93,6 @@ module dvs_aer_receiver
         end
         else begin
             req_count <= req_count - 1;
-        end
-    end
-
-    // Keep track of the current timestamp in terms of number of clock cycles
-    always_ff @(posedge clk, negedge rst_n) begin: rec_timestamp_counter
-        if(!rst_n) begin
-            timestamp_clk_cycles <= 0;
-        end
-        else begin
-            timestamp_clk_cycles <= timestamp_clk_cycles + 1;
         end
     end
 
