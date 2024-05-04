@@ -17,8 +17,8 @@ module dvs_aer_to_event_interface
         // FIFO bus interface inputs
         input logic fifo_grant,
 
-        // Clock timer input
-        input logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles,
+        // Time in us input
+        input logic [TIMESTAMP_US_BITS-1:0] time_us,
 
         // AER interface outputs
         output logic ack,
@@ -53,7 +53,7 @@ module dvs_aer_to_event_interface
         .aer(aer),
         .xsel(xsel),
         .req(req),
-        .timestamp_clk_cycles(timestamp_clk_cycles),
+        .time_us(time_us),
         .ack(ack),
         .event_x(event_x),
         .event_y(event_y),

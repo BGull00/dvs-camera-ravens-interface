@@ -14,8 +14,8 @@ module dvs_aer_receiver
         input logic xsel,
         input logic req,
 
-        // Clock timer input
-        input logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles,
+        // Time in us input
+        input logic [TIMESTAMP_US_BITS-1:0] time_us,
 
         // AER interface outputs
         output logic ack,
@@ -115,7 +115,7 @@ module dvs_aer_receiver
                 // Read in Y address and find the timestamp in microseconds for every subsequently read event at this Y address
                 if(xsel_synced == 0) begin
                     y_addr <= aer_synced[DVS_Y_ADDR_BITS-1:0];
-                    timestamp_us <= timestamp_clk_cycles / CLK_PERIOD_US_DIVISOR;
+                    timestamp_us <= time_us;
                     new_event <= 0;
                 end
 

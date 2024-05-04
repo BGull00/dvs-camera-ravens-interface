@@ -18,7 +18,7 @@ module dvs_ravens
         output logic ack
     );
 
-    logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles;
+    logic [TIMESTAMP_US_BITS-1:0] time_us;
     logic fifo_req_write;
     logic fifo_req_read;
     logic fifo_grant_write;
@@ -40,17 +40,18 @@ module dvs_ravens
         .xsel(xsel),
         .req(req),
         .fifo_grant(fifo_grant_write),
-        .timestamp_clk_cycles(timestamp_clk_cycles),
+        .time_us(time_us),
         .ack(ack),
         .fifo_req(fifo_req_write),
         .fifo_wr_en(fifo_wr_en),
         .fifo_event(fifo_write_event)
     );
 
-    clk_timer CLK_TIMER_INST (
+    // Module instance used to measure current time in us
+    timer_us TIMER_US_INST (
         .clk(clk),
         .rst_n(rst_n),
-        .timestamp_clk_cycles(timestamp_clk_cycles)
+        .time_us(time_us)
     );
 
     // Module instance used as arbiter for FIFO event queue bus

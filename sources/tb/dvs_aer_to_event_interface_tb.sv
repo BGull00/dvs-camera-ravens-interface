@@ -31,7 +31,7 @@ module dvs_aer_to_event_interface_tb;
     logic granted;
     logic [EVENT_BITS-1:0] min_fifo_event;
     logic [EVENT_BITS-1:0] max_fifo_event;
-    logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles;
+    logic [TIMESTAMP_US_BITS-1:0] time_us;
 
     // Internal testbench constants
     localparam DVS_READOUT_TIME = 83.333333333333;
@@ -49,6 +49,7 @@ module dvs_aer_to_event_interface_tb;
         .xsel(xsel),
         .req(req),
         .fifo_grant(fifo_grant),
+        .time_us(time_us),
         .ack(ack),
         .fifo_req(fifo_req),
         .fifo_wr_en(fifo_wr_en),
@@ -56,10 +57,10 @@ module dvs_aer_to_event_interface_tb;
     );
 
     // Supporting clock timer instance
-    clk_timer CLK_TIMER_INST (
+    timer_us TIMER_US_INST (
         .clk(clk),
         .rst_n(rst_n),
-        .timestamp_clk_cycles(timestamp_clk_cycles)
+        .time_us(time_us)
     );
 
     /* AER Protocol Format From Sender's Point of View:

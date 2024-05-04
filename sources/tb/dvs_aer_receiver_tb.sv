@@ -31,7 +31,7 @@ module dvs_aer_receiver_tb;
     int max_event_timestamp;
     time event_start_time;
     logic polarity;
-    logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles;
+    logic [TIMESTAMP_US_BITS-1:0] time_us;
 
     // Internal testbench constants
     localparam DVS_READOUT_TIME = 83.333333333333;
@@ -48,7 +48,7 @@ module dvs_aer_receiver_tb;
         .aer(aer),
         .xsel(xsel),
         .req(req),
-        .timestamp_clk_cycles(timestamp_clk_cycles),
+        .time_us(time_us),
         .ack(ack),
         .event_x(event_x),
         .event_y(event_y),
@@ -58,10 +58,10 @@ module dvs_aer_receiver_tb;
     );
 
     // Supporting clock timer instance
-    clk_timer CLK_TIMER_INST (
+    timer_us TIMER_US_INST (
         .clk(clk),
         .rst_n(rst_n),
-        .timestamp_clk_cycles(timestamp_clk_cycles)
+        .time_us(time_us)
     );
 
     /* AER Protocol Format From Sender's Point of View:

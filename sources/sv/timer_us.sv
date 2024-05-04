@@ -3,16 +3,18 @@
 // Import global constants from SystemVerilog package
 import dvs_ravens_pkg::*;
 
-module clk_timer
+module timer_us
     (
         // Global inputs
         input logic clk,
         input logic rst_n,
 
-        // Clock timer output
-        output logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles
+        // Time in us output
+        output logic [TIMESTAMP_US_BITS-1:0] time_us
     );
     
+    logic [TIMESTAMP_CLK_CYCLE_BITS-1:0] timestamp_clk_cycles;
+
     //=====================//
     // Sequential Circuits //
     //=====================//
@@ -27,4 +29,6 @@ module clk_timer
         end
     end
 
-endmodule: clk_timer
+    assign time_us = timestamp_clk_cycles / CLK_PERIOD_US_DIVISOR;
+
+endmodule: timer_us
