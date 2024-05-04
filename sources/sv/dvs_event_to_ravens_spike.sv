@@ -12,7 +12,7 @@ module dvs_event_to_ravens_spike
         output logic [RAVENS_PKT_BITS-1:0] ravens_spike
     );
 
-    logic [$clog2(DVS_X_ADDR_BITS*DVS_Y_ADDR_BITS)] flat_pxl_ind;
+    logic [$clog2(DVS_WIDTH_PXLS*DVS_HEIGHT_PXLS)-1:0] flat_pxl_ind;
     logic [7:0] flat_pxl_ind_8_bits;
 
     //========================//
