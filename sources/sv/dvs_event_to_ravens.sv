@@ -20,11 +20,17 @@ module dvs_event_to_ravens
 
     enum {WAIT_FOR_GRANT, READ_CTRL, READ} cur_fsm_state, next_fsm_state;
 
-    logic [EVENT_BITS-1:0] preprocessed_event;
+    logic [EVENT_BITS-1:0] dvs_event;
+    logic [RAVENS_PKT_BITS-1:0] ravens_spike;
 
     //=========================//
     // Component Instantiation //
     //=========================//
+
+    dvs_event_to_ravens_spike DVS_EVENT_TO_RAVENS_SPIKE_INST (
+        .dvs_event(dvs_event),
+        .ravens_spike(ravens_spike)
+    );
 
     //=====================//
     // Sequential Circuits //
@@ -43,11 +49,11 @@ module dvs_event_to_ravens
     // Read in an event from the FIFO event queue when the FSM is in the READ state (one clock cycle after setting the fifo read enable control signal)
     always_ff @(posedge clk, negedge rst_n) begin: event_ravens_interface_fifo_bus_read_event
         if(!rst_n) begin
-            preprocessed_event <= 0;
+            dvs_event <= 0;
         end
         else begin
             if(cur_fsm_state == READ) begin
-                preprocessed_event <= fifo_event;
+                dvs_event <= fifo_event;
             end
         end
     end
