@@ -1,0 +1,35 @@
+--- Verilog In ---
+dest_sch_lib            := sram_compiled
+ref_lib_list            := sample, basic, sram_cells_10lpe_HD, sram_logic_10lpe_HD
+-- ignore_node_file        := 
+import_if_exists        := 1
+import_cells            := 1
+import_lib_cells        := 1
+structural_views        := 1
+schematic_view_name     := schematic
+functional_view_name    := functional
+netlist_view_name       := netlist
+symbol_view_name        := symbol
+overwrite_symbol        := 1
+log_file_name           := /home/mdickey6/ece551/dvs-camera-ravens-interface/sources/SRAM_Comp/work/verilogIn.log
+map_file_name           := /home/mdickey6/ece551/dvs-camera-ravens-interface/sources/SRAM_Comp/work/verilogIn.map.table
+work_area               := /tmp
+power_net               := vdd!
+ground_net              := gnd!
+-- glob_sig_names          := 
+--- Schematic Generation ---
+sheet_symbol            := none
+page_row_limit          := 1024
+page_col_limit          := 1024
+label_height            := 10
+line_line_spacing       := 0.2
+line_component_spacing  := 0.5
+density_level           := 0
+pin_placement           := left_and_right_sides
+client                  := synthesis
+alias_module            := cds_alias
+cds_thru_symbol         := basic cds_thru symbol
+cont_assign_symbol      := basic patch symbol
+ref_sch_list            := schematic, sch
+pnr_max_inst            := 20000
+pnr_max_port            := 5000

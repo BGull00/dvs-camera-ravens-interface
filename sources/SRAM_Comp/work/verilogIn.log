@@ -1,0 +1,34 @@
+@(#)$CDS: ihdl version 6.1.8-64b 09/28/2022 10:57 (cpgsrv12) $  Sun May  5 15:13:26 2024
+
+INFO (VERILOGIN-589): Using xmvlog binary for compilation.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module INVD. Therefore using library
+sram_logic_10lpe_HD, cell INVD, and view symbol as the symbol.
+INFO (VERILOGIN-357): Checked in symbol invRow.
+INFO (VERILOGIN-372): Checked-in schematic invRow.
+INFO (VERILOGIN-357): Checked in symbol invCol.
+INFO (VERILOGIN-372): Checked-in schematic invCol.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module NANDC2x1. Therefore using library
+sram_logic_10lpe_HD, cell NANDC2x1, and view symbol as the symbol.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module INVC. Therefore using library
+sram_logic_10lpe_HD, cell INVC, and view symbol as the symbol.
+INFO (VERILOGIN-357): Checked in symbol rowDecoder.
+INFO (VERILOGIN-372): Checked-in schematic rowDecoder.
+INFO (VERILOGIN-357): Checked in symbol colDecoder.
+INFO (VERILOGIN-372): Checked-in schematic colDecoder.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module muxTrans. Therefore using library
+sram_logic_10lpe_HD, cell muxTrans, and view symbol as the symbol.
+INFO (VERILOGIN-357): Checked in symbol columnMux.
+INFO (VERILOGIN-372): Checked-in schematic columnMux.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module inverter_compiler. Therefore using library
+sram_logic_10lpe_HD, cell inverter_compiler, and view symbol as the symbol.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module sram_cell_6t_5_HD. Therefore using library
+sram_cells_10lpe_HD, cell sram_cell_6t_5_HD, and view symbol as the symbol.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module write_driver_compiler. Therefore using library
+sram_logic_10lpe_HD, cell write_driver_compiler, and view symbol as the symbol.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module sense_amp_clocked_compiler. Therefore using library
+sram_logic_10lpe_HD, cell sense_amp_clocked_compiler, and view symbol as the symbol.
+INFO (VERILOGIN-126): Unable to find the Verilog definition for module precharge_compiler. Therefore using library
+sram_logic_10lpe_HD, cell precharge_compiler, and view symbol as the symbol.
+INFO (VERILOGIN-357): Checked in symbol sram_compiled_array.
+INFO (VERILOGIN-412): Checked-in connect by name schematic sram_compiled_array.
+INFO (VERILOGIN-206): End of Logfile.
