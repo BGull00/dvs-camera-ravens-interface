@@ -5,7 +5,7 @@ set_app_var symbol_library "dw_foundation.sldb"
 set output_file "synthesized_design.db"  # Path to output file
 
 # Define file paths
-set design_files [list "dvs_aer_to_event_interface.sv" "dvs_aer_reciever.sv" "dvs_event_crop_filter.sv" "dvs_event_polarity_filter.sv" "dvs_event_preprocessor.sv" "dvs_event_to_ravens.sv" "dvs_ravens.sv" "dvs_ravens_arbiter.sv" "fifo.sv"] 
+set design_files [list "dvs_aer_to_event_interface.sv" "dvs_aer_reciever.sv" "dvs_event_crop_filter.sv" "dvs_event_polarity_filter.sv" "dvs_event_preprocessor.sv" "dvs_event_to_ravens.sv" "dvs_ravens.sv" "dvs_ravens_arbiter.sv" "dvs_fifo_event_queue.sv" "timer_us.sv" "dvs_event_to_ravens_spike.sv" "dvs_ravens_transmitter.sv"] 
 
 set top_module "dvs_aer_to_event_interface.sv"  # Name of the top module 
 # set constraints_file "constraints.sdc" ?
