@@ -27,6 +27,7 @@ module dvs_ravens
     logic fifo_rd_en;
     logic [EVENT_BITS-1:0] fifo_write_event;
     logic [EVENT_BITS-1:0] fifo_read_event;
+    logic [RAVENS_PKT_BITS-1:0] ravens_pkt;
 
     //=========================//
     // Component Instantiation //
@@ -60,6 +61,30 @@ module dvs_ravens
         .req_m2(fifo_req_read),
         .grant_m1(fifo_grant_write),
         .grant_m2(fifo_grant_read)
+    );
+
+    // Module instance used as FIFO event queue connected to bus
+    dvs_fifo_event_queue DVS_FIFO_EVENT_QUEUE_INST (
+        .clk(clk),
+        .rst_n(rst_n),
+        .event_in(fifo_write_event),
+        .wr_en(fifo_wr_en),
+        .rd_en(fifo_rd_en),
+        .event_out(fifo_read_event),
+        .empty,
+        .full
+    );
+
+    // Module instance used to turn DVS events into sequence of RAVENS packets, one packet at a time
+    dvs_event_to_ravens DVS_EVENT_TO_RAVENS_INST (
+        .clk(clk),
+        .rst_n(rst_n),
+        .fifo_grant(fifo_grant_read),
+        .fifo_event(fifo_read_event),
+        .time_us(time_us),
+        .fifo_req(fifo_req_read),
+        .fifo_rd_en(fifo_rd_en),
+        .ravens_pkt(ravens_pkt)
     );
 
 endmodule: dvs_ravens
