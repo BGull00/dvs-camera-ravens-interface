@@ -14,7 +14,7 @@
         localparam CLK_PERIOD_US_DIVISOR = 1000 / CLK_PERIOD_NS;
 
         // Number of bits for the timestamp value in an event
-        localparam TIMESTAMP_US_BITS = 47;
+        localparam TIMESTAMP_US_BITS = 45;
         localparam TIMESTAMP_CLK_CYCLE_BITS = TIMESTAMP_US_BITS + $clog2(CLK_PERIOD_US_DIVISOR);
 
         // Number of bits in an event (X address, Y address, polarity bit, and timestamp in microseconds concatenated together)

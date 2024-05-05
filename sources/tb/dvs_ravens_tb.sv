@@ -24,9 +24,12 @@ module dvs_ravens_tb;
     int min_remain_time_between_events;
     int delay_between_events;
     int event_time;
+    int successful_spike_pkts;
     time event_start_time;
     logic polarity;
     logic [RAVENS_PKT_BITS-1:0] expected_ravens_pkt_queue [$];
+    logic [RAVENS_PKT_BITS-1:0] expected_ravens_pkt_to_add;
+    logic [RAVENS_PKT_BITS-1:0] prev_added_expected_ravens_pkt;
     logic [RAVENS_PKT_BITS-1:0] prev_ravens_pkt;
     logic [RAVENS_PKT_BITS-1:0] expected_ravens_pkt;
 
@@ -100,11 +103,7 @@ module dvs_ravens_tb;
             x_addr = $urandom%DVS_WIDTH_PXLS;
             y_addr = $urandom%DVS_HEIGHT_PXLS;
 
-            // Add expected RAVENS packet from X and Y pixel addresses to a queue for later verification
-            pxl_addr_flattened_8_bit = (y_addr * DVS_WIDTH_PXLS + x_addr) % 256;
-            expected_ravens_pkt_queue.push_back({3'b000, 16'b0, pxl_addr_flattened_8_bit[7:4], pxl_addr_flattened_8_bit[3:0], 5'b0});
-
-	        $display("x_addr=%h , y_addr=%h", x_addr, y_addr);
+	        $display("x_addr=%d , y_addr=%d", x_addr, y_addr);
 
             // Send pixel Y coordinate to receiver through AER Protocol in following format: aer_data[9] = Don't care; aer_data[8:0] = Y address; XSelect = 0
             if(prev_y_addr != y_addr) begin
@@ -122,6 +121,17 @@ module dvs_ravens_tb;
             // Send pixel X coordinate to receiver through AER Protocol in following format: aer_data[9:1] = X address; aer_data[0] = Polarity; XSelect = 1
             polarity = $urandom&1;
             aer_protocol_dvs_sim({x_addr[8:0], polarity}, 1);
+
+	    // Add expected RAVENS packet from X and Y pixel addresses to a queue for later verification
+	    if(x_addr < 100 && y_addr < 100 && polarity == 1) begin
+            	pxl_addr_flattened_8_bit = (y_addr * DVS_WIDTH_PXLS + x_addr) % 256;
+		expected_ravens_pkt_to_add = {3'b000, 16'b0, pxl_addr_flattened_8_bit[7:4], pxl_addr_flattened_8_bit[3:0], 5'b0};
+		if(expected_ravens_pkt_to_add != prev_added_expected_ravens_pkt) begin
+            		expected_ravens_pkt_queue.push_back(expected_ravens_pkt_to_add);
+			$display("Added RAVENS spike packet %h for x_addr=%d, y_addr=%d", expected_ravens_pkt_to_add, x_addr, y_addr);
+			prev_added_expected_ravens_pkt = expected_ravens_pkt_to_add;
+		end
+	    end
 
             // Randomly find amount of delay between events
             if($urandom%INV_PROB_LONG_DELAY == 0) begin
@@ -159,15 +169,18 @@ module dvs_ravens_tb;
     // Verify output packets match input AER events
     initial begin: output_verification
         prev_ravens_pkt = 0;
+	successful_spike_pkts = 0;
         forever begin
             #0.5;
             if(ravens_pkt != prev_ravens_pkt) begin
-                if(ravens_pkt[RAVENS_PKT_BITS-1 -: 3] == 0 && ravens_pkt != 0 && !$isunknown(ravens_pkt)) begin
+                if(ravens_pkt[RAVENS_PKT_BITS-1 -: 3] == 0 && !$isunknown(ravens_pkt)) begin
                     expected_ravens_pkt = expected_ravens_pkt_queue.pop_front();
                     if(ravens_pkt != expected_ravens_pkt) begin
                         $display("ERROR: ravens_pkt=%h does not match expected_ravens_pkt=%h", ravens_pkt, expected_ravens_pkt);
                         $stop;
                     end
+		    successful_spike_pkts += 1;
+		    $display("Successfully sent %d RAVENS spike packets", successful_spike_pkts);
                 end
                 prev_ravens_pkt = ravens_pkt;
             end

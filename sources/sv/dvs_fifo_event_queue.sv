@@ -40,7 +40,7 @@ module dvs_fifo_event_queue
         .din(event_in),
         .wr_en(wr_en),
         .sense_en(rd_en),
-        .d_out(event_out)
+        .dout(event_out)
     );
 
     //=====================//

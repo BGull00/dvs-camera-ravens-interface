@@ -12,14 +12,14 @@ module dummy_sram
         input logic [$clog2(EVENT_QUEUE_DEPTH)-1:0] addr,
 
         // Input data to write to SRAM
-        input logic [EVENT_BITS-1:0] d_in,
+        input logic [EVENT_BITS-1:0] din,
 
         // Read/write control signals
         input logic wr_en,
         input logic sense_en,
 
         // Output data to read from SRAM
-        output logic [EVENT_BITS-1:0] d_out
+        output logic [EVENT_BITS-1:0] dout
     );
 
     logic [EVENT_BITS-1:0] sram [EVENT_QUEUE_DEPTH-1:0];
@@ -30,10 +30,10 @@ module dummy_sram
 
     always_ff @(posedge clk) begin: dummy_sram_mem
         if(wr_en) begin
-            sram[addr] <= d_in;
+            sram[addr] <= din;
         end
         else if(sense_en) begin
-            d_out <= sram[addr];
+            dout <= sram[addr];
         end
     end
 
