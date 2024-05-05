@@ -29,8 +29,6 @@ module dvs_aer_to_event_interface_tb;
     time event_start_time;
     logic polarity;
     logic granted;
-    logic [EVENT_BITS-1:0] min_fifo_event;
-    logic [EVENT_BITS-1:0] max_fifo_event;
     logic [TIMESTAMP_US_BITS-1:0] time_us;
 
     // Internal testbench constants

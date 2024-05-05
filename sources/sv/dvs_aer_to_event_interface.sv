@@ -70,7 +70,7 @@ module dvs_aer_to_event_interface
         .event_y(event_y),
         .event_timestamp(event_timestamp),
         .event_polarity(event_polarity),
-        .dvs_event(dvs_event),
+        .preprocessed_event(dvs_event),
         .event_filtered(event_filtered)
     );
 
