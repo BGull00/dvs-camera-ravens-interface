@@ -15,7 +15,10 @@ module dvs_ravens
         input logic req,
 
         // AER interface outputs
-        output logic ack
+        output logic ack,
+
+        // RAVENS packet outputs
+        output logic [RAVENS_PKT_BITS-1:0] ravens_pkt
     );
 
     logic [TIMESTAMP_US_BITS-1:0] time_us;
@@ -27,7 +30,6 @@ module dvs_ravens
     logic fifo_rd_en;
     logic [EVENT_BITS-1:0] fifo_write_event;
     logic [EVENT_BITS-1:0] fifo_read_event;
-    logic [RAVENS_PKT_BITS-1:0] ravens_pkt;
 
     //=========================//
     // Component Instantiation //
