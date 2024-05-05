@@ -102,7 +102,7 @@ module dvs_event_to_ravens
         unique case(cur_fsm_state)
 
             // Wait until the grant signal goes high
-            WAIT_FOR_GRANT: next_fsm_state = (fifo_grant == 1) ? READ_CTRL : WAIT_FOR_GRANT
+            WAIT_FOR_GRANT: next_fsm_state = (fifo_grant == 1) ? READ_CTRL : WAIT_FOR_GRANT;
             
             // Spend one clock cycle where the FIFO event queue read enable signal is high
             READ_CTRL: next_fsm_state = READ;

@@ -163,7 +163,7 @@ module dvs_ravens_tb;
             #0.5;
             if(ravens_pkt != prev_ravens_pkt) begin
                 if(ravens_pkt[RAVENS_PKT_BITS-1 -: 3] == 0 && ravens_pkt != 0 && !$isunknown(ravens_pkt)) begin
-                    expected_ravens_pkt = expected_ravens_pkt_queue.pop();
+                    expected_ravens_pkt = expected_ravens_pkt_queue.pop_front();
                     if(ravens_pkt != expected_ravens_pkt) begin
                         $display("ERROR: ravens_pkt=%h does not match expected_ravens_pkt=%h", ravens_pkt, expected_ravens_pkt);
                         $stop;

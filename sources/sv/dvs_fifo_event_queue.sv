@@ -24,11 +24,11 @@ module dvs_fifo_event_queue
         output logic full
     );
 
-    logic [$clog(EVENT_QUEUE_DEPTH)-1:0] read_ptr;
-    logic [$clog(EVENT_QUEUE_DEPTH)-1:0] write_ptr;
-    logic [$clog(EVENT_QUEUE_DEPTH)-1:0] next_write_ptr;
-    logic [$clog(EVENT_QUEUE_DEPTH)-1:0] next_read_ptr;
-    logic [$clog(EVENT_QUEUE_DEPTH)-1:0] addr;
+    logic [$clog2(EVENT_QUEUE_DEPTH)-1:0] read_ptr;
+    logic [$clog2(EVENT_QUEUE_DEPTH)-1:0] write_ptr;
+    logic [$clog2(EVENT_QUEUE_DEPTH)-1:0] next_write_ptr;
+    logic [$clog2(EVENT_QUEUE_DEPTH)-1:0] next_read_ptr;
+    logic [$clog2(EVENT_QUEUE_DEPTH)-1:0] addr;
 
     //=========================//
     // Component Instantiation //

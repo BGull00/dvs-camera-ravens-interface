@@ -19,7 +19,7 @@ module dummy_sram
         input logic sense_en,
 
         // Output data to read from SRAM
-        output logic [EVENT_BITS-1:0] d_out,
+        output logic [EVENT_BITS-1:0] d_out
     );
 
     logic [EVENT_BITS-1:0] sram [EVENT_QUEUE_DEPTH-1:0];

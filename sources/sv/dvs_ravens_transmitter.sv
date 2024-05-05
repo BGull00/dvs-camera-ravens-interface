@@ -52,7 +52,7 @@ module dvs_ravens_transmitter #(parameter SEGMENT_LENGTH_US = 25, NUM_SEGMENTS_P
     logic [TIMESTAMP_US_BITS-1:0] time_us_start_looking_for_new_sim_time;
     logic [TIMESTAMP_US_BITS-1:0] segment_last_timestamp_us;
     logic [$clog2(SIM_TIME)-1:0] cur_sim_time_timestep;
-    logic [clog((1<<TIMESTAMP_US_BITS) / SEGMENT_LENGTH_US + 1) - 1 : 0] num_timesteps_to_run;
+    logic [$clog2((1<<TIMESTAMP_US_BITS) / SEGMENT_LENGTH_US + 1) - 1 : 0] num_timesteps_to_run;
     logic is_new_sim_time;
 
     //=====================//
@@ -107,8 +107,8 @@ module dvs_ravens_transmitter #(parameter SEGMENT_LENGTH_US = 25, NUM_SEGMENTS_P
         else begin
             unique case(cur_fsm_state)
                 TRANSMIT_SPIKE: ravens_pkt <= ravens_spike;
-                RUN: ravens_pkt <= {3'b001, 0};
-                START_NEW_SIM_TIME: ravens_pkt <= {3'b010, 0};
+                RUN: ravens_pkt <= {3'b001, 29'b0};
+                START_NEW_SIM_TIME: ravens_pkt <= {3'b010, 29'b0};
                 default: ravens_pkt <= ravens_pkt;
             endcase
         end
