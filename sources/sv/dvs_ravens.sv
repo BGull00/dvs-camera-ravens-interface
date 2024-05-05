@@ -28,6 +28,8 @@ module dvs_ravens
     logic fifo_grant_read;
     logic fifo_wr_en;
     logic fifo_rd_en;
+    logic fifo_empty;
+    logic fifo_full;
     logic [EVENT_BITS-1:0] fifo_write_event;
     logic [EVENT_BITS-1:0] fifo_read_event;
 
@@ -61,6 +63,8 @@ module dvs_ravens
     dvs_ravens_arbiter DVS_RAVENS_ARBITER_INST (
         .req_m1(fifo_req_write),
         .req_m2(fifo_req_read),
+        .fifo_empty(fifo_empty),
+        .fifo_full(fifo_full),
         .grant_m1(fifo_grant_write),
         .grant_m2(fifo_grant_read)
     );
@@ -73,8 +77,8 @@ module dvs_ravens
         .wr_en(fifo_wr_en),
         .rd_en(fifo_rd_en),
         .event_out(fifo_read_event),
-        .empty,
-        .full
+        .empty(fifo_empty),
+        .full(fifo_full)
     );
 
     // Module instance used to turn DVS events into sequence of RAVENS packets, one packet at a time

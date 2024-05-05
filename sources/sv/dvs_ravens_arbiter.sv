@@ -9,6 +9,10 @@ module dvs_ravens_arbiter
         input logic req_m1,
         input logic req_m2,
 
+        // FIFO event queue control signals
+        input logic fifo_empty,
+        input logic fifo_full,
+
         // Grant outputs
         output logic grant_m1,
         output logic grant_m2
@@ -19,7 +23,7 @@ module dvs_ravens_arbiter
     //========================//
 
     // Combinational logic arbiter where M1 always has priority over M2
-    assign grant_m1 = req_m1;
-    assign grant_m2 = (req_m2 & ~req_m1);
+    assign grant_m1 = req_m1 & ~fifo_full;
+    assign grant_m2 = req_m2 & ~req_m1 & ~fifo_empty;
 
 endmodule: dvs_ravens_arbiter
