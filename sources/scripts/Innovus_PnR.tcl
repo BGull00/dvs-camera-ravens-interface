@@ -89,6 +89,12 @@ gui_select -rect {-62.23500 129.91100 -60.39700 174.81000}
 # Place SRAM manually
 placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 212.84 179.86 R0 -placed
 
+# Pin assignments
+setPinAssignMode -pinEditInBatch true
+editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -spreadDirection clockwise -layer M2 -spreadType center -spacing 95.2 -side Left -snap TRACK -pin { {aer[0]} {sc_clk} {sc_out} {sc_en} {clk} {rst_n} }
+editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -spreadDirection clockwise -layer M2 -spreadType center -spacing 95.2 -side Right -snap TRACK -pin { {rna_idle} {Vth} {Vrst} {Vncm} {Vst} }
+setPinAssignMode -pinEditInBatch false
+
 # First placement: Rough
 setPlaceMode -reset
 setPlaceMode -congEffort auto -timingDriven 1 -clkGateAware 1 -powerDriven 0 -ignoreScan 1 -reorderScan 1 -ignoreSpare 1 -placeIOPins 1 -moduleAwareSpare 1 -preserveRouting 0 -rmAffectedRouting 0 -checkRoute 0 -swapEEQ 0
