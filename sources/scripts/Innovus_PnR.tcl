@@ -1,4 +1,4 @@
-set sq_dimension 571.2
+set sq_dimension 761.6
 set glnetlist "dvs_ravens_glnet.v"
 
 # File imports, floorplanning, and power setup
@@ -85,6 +85,9 @@ sroute -connect { blockPin padRing corePin floatingStripe } -layerChangeRange { 
 setSrouteMode -viaConnectToShape { noshape }
 sroute -connect { blockPin padRing corePin floatingStripe } -layerChangeRange { M1(1) BB(6) } -blockPinTarget { nearestTarget } -corePinTarget { firstAfterRowEnd } -floatingStripeTarget { blockring padring ring stripe ringpin blockpin followpin } -allowJogging 1 -crossoverViaLayerRange { M1(1) BB(6) } -nets { gnd! vdd! } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) BB(6) }
 gui_select -rect {-62.23500 129.91100 -60.39700 174.81000}
+
+# Place SRAM manually
+placeInstance SRAM_COMPILED_ARRAY_INST 300 200 R0 -placed
 
 # First placement: Rough
 setPlaceMode -reset
