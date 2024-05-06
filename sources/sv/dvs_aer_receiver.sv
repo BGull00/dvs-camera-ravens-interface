@@ -88,11 +88,16 @@ module dvs_aer_receiver
 
     // Counter based timer used to ensure delay of ~50ns between REQ and reading the AER data (only used in DELAY_50NS FSM state)
     always_ff @(posedge clk, negedge rst_n) begin: rec_req_delay_counter
-        if(!rst_n || cur_fsm_state != DELAY_50NS) begin
+        if(!rst_n) begin
             req_count <= REQ_COUNT_50NS;
         end
         else begin
-            req_count <= req_count - 1;
+            if(cur_fsm_state != DELAY_50NS) begin
+                req_count <= REQ_COUNT_50NS;
+            end
+            else begin
+                req_count <= req_count - 1;
+            end
         end
     end
 
