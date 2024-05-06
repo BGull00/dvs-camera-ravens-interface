@@ -1,4 +1,4 @@
-set sq_dimension 114.24
+set sq_dimension 380.8
 set glnetlist "aer_to_event_glnet.v"
 
 set pwr_stripe_start_from_center 5.95
@@ -82,7 +82,7 @@ set sprCreateIeRingLayers {}
 set sprCreateIeStripeWidth 10.0
 set sprCreateIeStripeThreshold 1.0
 setAddStripeMode -ignore_block_check false -break_at none -route_over_rows_only false -rows_without_stripes_only false -extend_to_closest_target none -stop_at_last_wire_for_area false -partial_set_thru_domain false -ignore_nondefault_domains false -trim_antenna_back_to_shape none -spacing_type edge_to_edge -spacing_from_block 0 -stripe_min_length stripe_width -stacked_via_top_layer BB -stacked_via_bottom_layer M1 -via_using_exact_crossover_size false -split_vias false -orthogonal_only true -allow_jog { padcore_ring  block_ring } -skip_via_on_pin {  standardcell } -skip_via_on_wire_shape {  noshape   }
-addStripe -nets {gnd! vdd!} -layer BB -direction vertical -width 4.76 -spacing 2.38 -set_to_set_distance $sq_dimension -start_from left -start_offset $pwr_stripe_start -switch_layer_over_obs false -max_same_layer_jog_length 2 -padcore_ring_top_layer_limit BB -padcore_ring_bottom_layer_limit M1 -block_ring_top_layer_limit BB -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid None
+addStripe -nets {gnd! vdd!} -layer BB -direction vertical -width 4.76 -spacing 2.38 -set_to_set_distance $sq_dimension -start_from left -start_offset 13.09 -switch_layer_over_obs false -max_same_layer_jog_length 2 -padcore_ring_top_layer_limit BB -padcore_ring_bottom_layer_limit M1 -block_ring_top_layer_limit BB -block_ring_bottom_layer_limit M1 -use_wire_group 0 -snap_wire_center_to_grid None
 setSrouteMode -viaConnectToShape { noshape }
 sroute -connect { blockPin padRing corePin floatingStripe } -layerChangeRange { M1(1) BB(6) } -blockPinTarget { nearestTarget } -corePinTarget { firstAfterRowEnd } -floatingStripeTarget { blockring padring ring stripe ringpin blockpin followpin } -allowJogging 1 -crossoverViaLayerRange { M1(1) BB(6) } -nets { gnd! vdd! } -allowLayerChange 1 -blockPin useLef -targetViaLayerRange { M1(1) BB(6) }
 setSrouteMode -viaConnectToShape { noshape }
@@ -119,3 +119,41 @@ ccopt_design
 # Post-CTS optimization
 optDesign -postCTS -incr
 optDesign -postCTS -incr -hold
+
+# STD cell filler
+getFillerMode -quiet
+addFiller -cell filler_x10 filler_x09 filler_x08 filler_x07 filler_x06 filler_x05 filler_x04 filler_x03 filler_x02 filler_x01 -prefix FILLER
+
+# Routing
+setNanoRouteMode -quiet -drouteFixAntenna 1
+setNanoRouteMode -quiet -routeInsertAntennaDiode 0
+setNanoRouteMode -quiet -routeWithTimingDriven 0
+setNanoRouteMode -quiet -routeWithEco 0
+setNanoRouteMode -quiet -routeWithLithoDriven 0
+setNanoRouteMode -quiet -droutePostRouteLithoRepair 0
+setNanoRouteMode -quiet -routeWithSiDriven 0
+setNanoRouteMode -quiet -drouteAutoStop 0
+setNanoRouteMode -quiet -routeSelectedNetOnly 0
+setNanoRouteMode -quiet -routeTopRoutingLayer 4
+setNanoRouteMode -quiet -routeBottomRoutingLayer 1
+setNanoRouteMode -quiet -drouteEndIteration 1
+setNanoRouteMode -quiet -routeWithTimingDriven false
+setNanoRouteMode -quiet -routeWithSiDriven false
+routeDesign -globalDetail
+getMultiCpuUsage -localCpu
+
+# DRC violation checking
+get_verify_drc_mode -disable_rules -quiet
+get_verify_drc_mode -quiet -area
+get_verify_drc_mode -quiet -layer_range
+get_verify_drc_mode -check_ndr_spacing -quiet
+get_verify_drc_mode -check_only -quiet
+get_verify_drc_mode -check_same_via_cell -quiet
+get_verify_drc_mode -exclude_pg_net -quiet
+get_verify_drc_mode -ignore_trial_route -quiet
+get_verify_drc_mode -max_wrong_way_halo -quiet
+get_verify_drc_mode -use_min_spacing_on_block_obs -quiet
+get_verify_drc_mode -limit -quiet
+set_verify_drc_mode -disable_rules {} -check_ndr_spacing auto -check_only default -check_same_via_cell true -exclude_pg_net false -ignore_trial_route false -ignore_cell_blockage false -use_min_spacing_on_block_obs auto -report dvs_aer_to_event_interface.drc.rpt -limit 1000
+verify_drc
+set_verify_drc_mode -area {0 0 0 0}
