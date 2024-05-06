@@ -1,6 +1,5 @@
 set sq_dimension 571.2
 set glnetlist "dvs_ravens_glnet.v"
-set sram_lef "abstract.lef"
 
 # File imports, floorplanning, and power setup
 set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
@@ -9,7 +8,7 @@ win
 set enc_check_rename_command_name 1
 setGenerateViaMode -auto true
 set init_gnd_net gnd!
-set init_lef_file {/research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/files/cmos10lpe_tech_20210608.lef /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/files/stdlib_10lpe-20210622_1825.lef /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/files/stdlib_10lpe_filler-20210111.lef "${sram_lef}"}
+set init_lef_file {/research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/files/cmos10lpe_tech_20210608.lef /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/files/stdlib_10lpe-20210622_1825.lef /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/files/stdlib_10lpe_filler-20210111.lef abstract.lef}
 set init_verilog $glnetlist
 set init_mmmc_file Default.view
 set init_pwr_net vdd!
