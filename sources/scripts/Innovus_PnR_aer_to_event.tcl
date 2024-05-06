@@ -1,4 +1,4 @@
-set sq_dimension 76.16
+set sq_dimension 114.24
 set glnetlist "aer_to_event_glnet.v"
 
 set pwr_stripe_start_from_center 5.95
