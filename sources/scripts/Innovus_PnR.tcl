@@ -97,35 +97,35 @@ editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -sp
 editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -spreadDirection clockwise -layer M2 -spreadType center -spacing 34 -side Bottom -snap TRACK -pin { {ravens_pkt[0]} {ravens_pkt[1]} {ravens_pkt[2]} {ravens_pkt[3]} {ravens_pkt[4]} {ravens_pkt[5]} {ravens_pkt[6]} {ravens_pkt[7]} {ravens_pkt[8]} {ravens_pkt[9]} {ravens_pkt[10]} {ravens_pkt[11]} {ravens_pkt[12]} {ravens_pkt[13]} {ravens_pkt[14]} {ravens_pkt[15]} }
 setPinAssignMode -pinEditInBatch false
 
-# Ensure clock tree synthesis runs
-set_ccopt_property sink_type -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk stop
-
 # First placement: Rough
 setPlaceMode -reset
 setPlaceMode -congEffort auto -timingDriven 1 -clkGateAware 1 -powerDriven 0 -ignoreScan 1 -reorderScan 1 -ignoreSpare 1 -placeIOPins 1 -moduleAwareSpare 1 -preserveRouting 0 -rmAffectedRouting 0 -checkRoute 0 -swapEEQ 0
 setPlaceMode -fp true
 place_design
 
-# # Second placement: Incremental
-# setPlaceMode -fp false
-# place_design -incremental
+# Second placement: Incremental
+setPlaceMode -fp false
+place_design -incremental
 
-# # Third placement: More routing-aware
-# setRouteMode -earlyGlobalHonorMsvRouteConstraint false -earlyGlobalRoutePartitionPinGuide true
-# setUsefulSkewMode -maxSkew false -noBoundary false -useCells {buf_x1 buf_x2 buf_x4 buf_x8 buf_x16 buf_x32 buf_x64 inv_x1 inv_x2 inv_x4 inv_x8 inv_x16 inv_x32 inv_x64} -maxAllowedDelay 1
-# setPlaceMode -reset
-# setPlaceMode -congEffort high -timingDriven 1 -clkGateAware 1 -powerDriven 0 -ignoreScan 1 -reorderScan 1 -ignoreSpare 1 -placeIOPins 1 -moduleAwareSpare 1 -preserveRouting 0 -rmAffectedRouting 0 -checkRoute 0 -swapEEQ 0
-# setRouteMode -earlyGlobalMaxRouteLayer 5
-# refinePlace -checkRoute 0 -preserveRouting 0 -rmAffectedRouting 0 -swapEEQ 0
+# Third placement: More routing-aware
+setRouteMode -earlyGlobalHonorMsvRouteConstraint false -earlyGlobalRoutePartitionPinGuide true
+setUsefulSkewMode -maxSkew false -noBoundary false -useCells {buf_x1 buf_x2 buf_x4 buf_x8 buf_x16 buf_x32 buf_x64 inv_x1 inv_x2 inv_x4 inv_x8 inv_x16 inv_x32 inv_x64} -maxAllowedDelay 1
+setPlaceMode -reset
+setPlaceMode -congEffort high -timingDriven 1 -clkGateAware 1 -powerDriven 0 -ignoreScan 1 -reorderScan 1 -ignoreSpare 1 -placeIOPins 1 -moduleAwareSpare 1 -preserveRouting 0 -rmAffectedRouting 0 -checkRoute 0 -swapEEQ 0
+setRouteMode -earlyGlobalMaxRouteLayer 5
+refinePlace -checkRoute 0 -preserveRouting 0 -rmAffectedRouting 0 -swapEEQ 0
 
-# # Fourth placement: Before clock tree synthesis
-# place_opt_design -incremental
+# Fourth placement: Before clock tree synthesis
+place_opt_design -incremental
 
-# # Fifth placement: Final refining
-# refinePlace
+# Fifth placement: Final refining
+refinePlace
 
-# # Clock tree synthesis
-# ccopt_design
+# Ensure clock tree synthesis runs
+set_ccopt_property sink_type -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk stop
+
+# Clock tree synthesis
+ccopt_design
 
 # # Post-CTS optimization
 # optDesign -postCTS -incr
