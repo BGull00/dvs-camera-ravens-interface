@@ -87,7 +87,7 @@ sroute -connect { blockPin padRing corePin floatingStripe } -layerChangeRange { 
 gui_select -rect {-62.23500 129.91100 -60.39700 174.81000}
 
 # Place SRAM manually
-# placeInstance SRAM_COMPILED_ARRAY_INST 300 200 R0 -placed
+placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 300 200 R0 -placed
 
 # First placement: Rough
 setPlaceMode -reset
