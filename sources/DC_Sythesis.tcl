@@ -20,13 +20,13 @@ foreach file $design_files {
     read_file -format sverilog $sources_sv_dir$file
 }
 
+current_design dvs_ravens
+
 # Analyze the design files
 analyze -format sverilog "${sources_pkg_dir}dvs_ravens_pkg.sv"
 foreach file $design_files {
     analyze -format sverilog $sources_sv_dir$file
 }
-
-current_design dvs_ravens
 
 # Perform elaboration (design hierarchy construction)
 elaborate dvs_ravens
