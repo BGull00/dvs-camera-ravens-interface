@@ -47,7 +47,7 @@ module dvs_ravens_transmitter #(parameter SEGMENT_LENGTH_US = 25, NUM_SEGMENTS_P
         output logic [RAVENS_PKT_BITS-1:0] ravens_pkt
     );
 
-    enum {WAIT_FOR_SPIKE_NEW_SIM_TIME, WAIT_FOR_NEXT_SPIKE_IN_SIM_TIME, START_NEW_SIM_TIME, RUN, TRANSMIT_SPIKE} cur_fsm_state, next_fsm_state;
+    enum bit[2:0] {WAIT_FOR_SPIKE_NEW_SIM_TIME, WAIT_FOR_NEXT_SPIKE_IN_SIM_TIME, START_NEW_SIM_TIME, RUN, TRANSMIT_SPIKE} cur_fsm_state, next_fsm_state;
 
     logic [TIMESTAMP_US_BITS-1:0] time_us_start_looking_for_new_sim_time;
     logic [TIMESTAMP_US_BITS-1:0] segment_last_timestamp_us;

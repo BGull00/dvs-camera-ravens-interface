@@ -24,7 +24,7 @@ module dvs_event_to_ravens
         output logic [RAVENS_PKT_BITS-1:0] ravens_pkt
     );
 
-    enum {WAIT_FOR_GRANT, READ_CTRL, READ} cur_fsm_state, next_fsm_state;
+    enum bit[1:0] {WAIT_FOR_GRANT, READ_CTRL, READ} cur_fsm_state, next_fsm_state;
 
     logic new_spike;
     logic sent_spike;
@@ -42,7 +42,7 @@ module dvs_event_to_ravens
 
     dvs_ravens_transmitter DVS_RAVENS_TRANSMITTER_INST (
         .clk(clk),
-        .rst_n(rst_net),
+        .rst_n(rst_n),
         .new_spike(new_spike),
         .ravens_spike_timestamp_us(dvs_event[TIMESTAMP_US_BITS-1:0]),
         .ravens_spike(ravens_spike),
