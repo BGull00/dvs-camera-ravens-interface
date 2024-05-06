@@ -29,7 +29,7 @@ foreach file $design_files {
 current_design dvs_ravens
 
 # Perform elaboration (design hierarchy construction)
-elaborate
+elaborate dvs_ravens
 
 # Perform link
 link
