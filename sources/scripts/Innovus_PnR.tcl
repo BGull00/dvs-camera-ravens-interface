@@ -87,12 +87,12 @@ sroute -connect { blockPin padRing corePin floatingStripe } -layerChangeRange { 
 gui_select -rect {-62.23500 129.91100 -60.39700 174.81000}
 
 # Place SRAM manually
-placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 170 136 R0 -placed
+placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 120.02 81.94 R0 -placed
 
 # Pin assignments
 setPinAssignMode -pinEditInBatch true
 editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -spreadDirection clockwise -layer M2 -spreadType center -spacing 51 -side Left -snap TRACK -pin { {aer[0]} {aer[1]} {aer[2]} {aer[3]} {aer[4]} {aer[5]} {aer[6]} {aer[7]} {aer[8]} {aer[9]} }
-editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -spreadDirection clockwise -layer M2 -spreadType center -spacing 68 -side Top -snap TRACK -pin { {xsel} {req} {ack} {clk} {rst_n} }
+editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -spreadDirection clockwise -layer M2 -spreadType center -spacing 85 -side Top -snap TRACK -pin { {xsel} {req} {ack} {clk} {rst_n} }
 editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -spreadDirection clockwise -layer M2 -spreadType center -spacing 34 -side Right -snap TRACK -pin { {ravens_pkt[16]} {ravens_pkt[17]} {ravens_pkt[18]} {ravens_pkt[19]} {ravens_pkt[20]} {ravens_pkt[21]} {ravens_pkt[22]} {ravens_pkt[23]} {ravens_pkt[24]} {ravens_pkt[25]} {ravens_pkt[26]} {ravens_pkt[27]} {ravens_pkt[28]} {ravens_pkt[29]} {ravens_pkt[30]} {ravens_pkt[31]} }
 editPin -pinWidth 0.18 -pinDepth 0.34 -fixedPin 1 -fixOverlap 1 -unit MICRON -spreadDirection clockwise -layer M2 -spreadType center -spacing 34 -side Bottom -snap TRACK -pin { {ravens_pkt[0]} {ravens_pkt[1]} {ravens_pkt[2]} {ravens_pkt[3]} {ravens_pkt[4]} {ravens_pkt[5]} {ravens_pkt[6]} {ravens_pkt[7]} {ravens_pkt[8]} {ravens_pkt[9]} {ravens_pkt[10]} {ravens_pkt[11]} {ravens_pkt[12]} {ravens_pkt[13]} {ravens_pkt[14]} {ravens_pkt[15]} }
 setPinAssignMode -pinEditInBatch false
