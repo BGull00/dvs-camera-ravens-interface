@@ -20,34 +20,34 @@ foreach file $design_files {
     read_file -format sverilog $sources_sv_dir$file
 }
 
-# Analyze the design files
-analyze -library WORK "${sources_pkg_dir}dvs_ravens_pkg.sv"
-foreach file $design_files {
-    analyze -library WORK $sources_sv_dir$file
-}
+# # Analyze the design files
+# analyze -library WORK "${sources_pkg_dir}dvs_ravens_pkg.sv"
+# foreach file $design_files {
+#     analyze -library WORK $sources_sv_dir$file
+# }
 
-# Perform elaboration (design hierarchy construction)
-elaborate dvs_ravens
+# # Perform elaboration (design hierarchy construction)
+# elaborate dvs_ravens
 
-# Perform link
-link
+# # Perform link
+# link
 
-check_design
+# check_design
 
-# Create clock
-create_clock -name "clk" -period 10 -waveform {0.0 5.0}
+# # Create clock
+# create_clock -name "clk" -period 10 -waveform {0.0 5.0}
 
-define_design_lib WORK -path "./work"
+# define_design_lib WORK -path "./work"
 
-# Perform synthesis
-compile_ultra -gate_clock -no_autoungroup
+# # Perform synthesis
+# compile_ultra -gate_clock -no_autoungroup
 
-# Report synthesis results
-report_timing 
-report_area
-report_power
-report_resources
+# # Report synthesis results
+# report_timing 
+# report_area
+# report_power
+# report_resources
 
-# Save the synthesized design to output files
-write -hierarchy -output $output_file_db
-write -f verilog -h -o $output_file_glnet
+# # Save the synthesized design to output files
+# write -hierarchy -output $output_file_db
+# write -f verilog -h -o $output_file_glnet
