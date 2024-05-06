@@ -6,6 +6,8 @@ set sources_pkg_dir "${sources_dir}pkg/"
 set sources_synth_outputs_dir "${sources_dir}synthesis_outputs/"
 set output_file_db "${sources_synth_outputs_dir}arbiter_synthesized_design.db"
 set output_file_glnet "${sources_synth_outputs_dir}arbiter_glnet.v"
+set output_file_sdf "${sources_synth_outputs_dir}arbiter.sdf"
+set output_file_sdc "${sources_synth_outputs_dir}arbiter.sdc"
 
 set_app_var search_path ". /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/library"
 set_app_var link_path "* stdlib_10lpe_ccs_comb.db"
@@ -51,3 +53,5 @@ report_resources
 # Save the synthesized design to output files
 write -hierarchy -output $output_file_db
 write -f verilog -h -o $output_file_glnet
+write_sdf $output_file_sdf
+write_sdc $output_file_sdc
