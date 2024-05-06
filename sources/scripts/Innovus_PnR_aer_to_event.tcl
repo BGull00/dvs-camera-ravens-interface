@@ -1,4 +1,4 @@
-set sq_dimension 380.8
+set sq_dimension 114.24
 set glnetlist "aer_to_event_glnet.v"
 
 # File imports, floorplanning, and power setup
