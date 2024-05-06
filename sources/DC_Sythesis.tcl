@@ -12,7 +12,7 @@ set_app_var target_library "stdlib_10lpe_ccs_comb.db"
 set_app_var symbol_library "dw_foundation.sldb"
 
 # Define file paths
-set design_files [list "dvs_aer_to_event_interface.sv" "dvs_aer_reciever.sv" "dvs_event_crop_filter.sv" "dvs_event_polarity_filter.sv" "dvs_event_preprocessor.sv" "dvs_event_to_ravens.sv" "dvs_ravens.sv" "dvs_ravens_arbiter.sv" "dvs_fifo_event_queue.sv" "timer_us.sv" "dvs_event_to_ravens_spike.sv" "dvs_ravens_transmitter.sv" "sram_compiled_array_empty.sv"] 
+set design_files [list "dvs_aer_to_event_interface.sv" "dvs_aer_receiver.sv" "dvs_event_crop_filter.sv" "dvs_event_polarity_filter.sv" "dvs_event_preprocessor.sv" "dvs_event_to_ravens.sv" "dvs_ravens.sv" "dvs_ravens_arbiter.sv" "dvs_fifo_event_queue.sv" "timer_us.sv" "dvs_event_to_ravens_spike.sv" "dvs_ravens_transmitter.sv" "sram_compiled_array_empty.sv"] 
 
 # Read the design files
 read_file -format sverilog "${sources_pkg_dir}dvs_ravens_pkg.sv"
