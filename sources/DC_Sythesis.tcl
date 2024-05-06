@@ -22,10 +22,12 @@ foreach file $design_files {
 
 current_design dvs_ravens
 
+define_design_lib WORK -path "./work"
+
 # Analyze the design files
-analyze -format sverilog "${sources_pkg_dir}dvs_ravens_pkg.sv"
+analyze -library WORK -format sverilog "${sources_pkg_dir}dvs_ravens_pkg.sv"
 foreach file $design_files {
-    analyze -format sverilog $sources_sv_dir$file
+    analyze -library WORK -format sverilog $sources_sv_dir$file
 }
 
 # Perform elaboration (design hierarchy construction)
@@ -38,8 +40,6 @@ elaborate dvs_ravens
 
 # # Create clock
 # create_clock -name "clk" -period 10 -waveform {0.0 5.0}
-
-# define_design_lib WORK -path "./work"
 
 # # Perform synthesis
 # compile_ultra -gate_clock -no_autoungroup
