@@ -30,7 +30,7 @@ module dvs_aer_receiver
         output logic new_event
     );
 
-    enum {WAIT_FOR_REQ_ASSERT, DELAY_50NS, RECEIVE_DATA, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
+    enum bit[3:0] {WAIT_FOR_REQ_ASSERT, DELAY_50NS, RECEIVE_DATA, WAIT_FOR_REQ_DEASSERT} cur_fsm_state, next_fsm_state;
 
     // # of clock cycles needed to delay to ensure 50ns between REQ assertion and reading of X address AER data
     // - 2 comes from: one clock cycle needed to transition from delay FSM state to AER read state, 1 clock cycle from double FF sync
