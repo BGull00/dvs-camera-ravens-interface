@@ -173,7 +173,7 @@ module dvs_ravens_transmitter #(parameter SEGMENT_LENGTH_US = 25, NUM_SEGMENTS_P
             end
 
             // After transmitting a spike, wait on the next one for the current sim time
-            TRANSMIT_SPIKE: next_fsm_state <= WAIT_FOR_NEXT_SPIKE_IN_SIM_TIME;
+            TRANSMIT_SPIKE: next_fsm_state = WAIT_FOR_NEXT_SPIKE_IN_SIM_TIME;
 
             default: next_fsm_state = WAIT_FOR_SPIKE_NEW_SIM_TIME;
         endcase
