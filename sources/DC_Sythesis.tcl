@@ -33,13 +33,13 @@ foreach file $design_files {
 # Perform elaboration (design hierarchy construction)
 elaborate dvs_ravens
 
-# # Perform link
-# link
+# Perform link
+link
 
-# check_design
+check_design
 
-# # Create clock
-# create_clock -name "clk" -period 10 -waveform {0.0 5.0}
+# Create clock
+create_clock -name "clk" -period 10 -waveform {0.0 5.0}
 
 # # Perform synthesis
 # compile_ultra -gate_clock -no_autoungroup
