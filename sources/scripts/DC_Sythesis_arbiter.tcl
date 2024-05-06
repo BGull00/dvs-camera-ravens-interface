@@ -2,6 +2,7 @@
 set sources_dir "/home/bgullet1/TENNLab/dvs-camera-ravens-interface/sources/"
 
 set sources_sv_dir "${sources_dir}sv/"
+set sources_pkg_dir "${sources_dir}pkg/"
 set output_file_db "${sources_dir}arbiter_synthesized_design.db"
 set output_file_glnet "${sources_dir}arbiter_glnet.v"
 
@@ -14,6 +15,7 @@ set_app_var symbol_library "dw_foundation.sldb"
 set design_files [list "dvs_ravens_arbiter.sv"] 
 
 # Read the design files
+read_file -format sverilog "${sources_pkg_dir}dvs_ravens_pkg.sv"
 foreach file $design_files {
     read_file -format sverilog $sources_sv_dir$file
 }
@@ -23,6 +25,7 @@ current_design dvs_ravens_arbiter
 define_design_lib WORK -path "./work"
 
 # Analyze the design files
+analyze -library WORK -format sverilog "${sources_pkg_dir}dvs_ravens_pkg.sv"
 foreach file $design_files {
     analyze -library WORK -format sverilog $sources_sv_dir$file
 }
