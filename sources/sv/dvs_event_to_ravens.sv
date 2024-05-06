@@ -88,7 +88,7 @@ module dvs_event_to_ravens
                 new_spike <= 1;
             end
             else if(sent_spike == 1) begin
-                new_spike = 0;
+                new_spike <= 0;
             end
         end
     end
