@@ -1,0 +1,47 @@
+(DELAYFILE
+(SDFVERSION "OVI 2.1")
+(DESIGN "dvs_ravens_arbiter")
+(DATE "Mon May  6 10:07:04 2024")
+(VENDOR "stdlib_10lpe_ccs_comb")
+(PROGRAM "Synopsys Design Compiler cmos")
+(VERSION "T-2022.03-SP5-1")
+(DIVIDER /)
+(VOLTAGE 1.20:1.20:1.20)
+(PROCESS "PVT_1P2V_25C")
+(TEMPERATURE 25.00:25.00:25.00)
+(TIMESCALE 1ns)
+(CELL
+  (CELLTYPE "dvs_ravens_arbiter")
+  (INSTANCE)
+  (DELAY
+    (ABSOLUTE
+    (INTERCONNECT req_m2 U4/AN (0.000:0.000:0.000))
+    (INTERCONNECT fifo_empty U4/B (0.000:0.000:0.000))
+    (INTERCONNECT req_m1 U4/C (0.000:0.000:0.000))
+    (INTERCONNECT req_m1 U3/AN (0.000:0.000:0.000))
+    (INTERCONNECT fifo_full U3/B (0.000:0.000:0.000))
+    )
+  )
+)
+(CELL
+  (CELLTYPE "nor3b_x1")
+  (INSTANCE U4)
+  (DELAY
+    (ABSOLUTE
+    (IOPATH AN Y (0.067:0.067:0.067) (0.059:0.059:0.059))
+    (IOPATH B Y (0.031:0.031:0.031) (0.022:0.022:0.022))
+    (IOPATH C Y (0.023:0.023:0.023) (0.018:0.018:0.018))
+    )
+  )
+)
+(CELL
+  (CELLTYPE "nor2b_x1")
+  (INSTANCE U3)
+  (DELAY
+    (ABSOLUTE
+    (IOPATH AN Y (0.051:0.051:0.051) (0.048:0.048:0.048))
+    (IOPATH B Y (0.018:0.018:0.018) (0.015:0.015:0.015))
+    )
+  )
+)
+)
