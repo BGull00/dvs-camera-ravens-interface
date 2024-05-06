@@ -3,8 +3,9 @@ set sources_dir "/home/bgullet1/TENNLab/dvs-camera-ravens-interface/sources/"
 
 set sources_sv_dir "${sources_dir}sv/"
 set sources_pkg_dir "${sources_dir}pkg/"
-set output_file_db "${sources_dir}fifo_event_queue_synthesized_design.db"
-set output_file_glnet "${sources_dir}fifo_event_queue_glnet.v"
+set sources_synth_outputs_dir "${sources_dir}synthesis_outputs/"
+set output_file_db "${sources_synth_outputs_dir}fifo_event_queue_synthesized_design.db"
+set output_file_glnet "${sources_synth_outputs_dir}fifo_event_queue_glnet.v"
 
 set_app_var search_path ". /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/library"
 set_app_var link_path "* stdlib_10lpe_ccs_comb.db"
