@@ -41,15 +41,15 @@ check_design
 # Create clock
 create_clock -name "clk" -period 10 -waveform {0.0 5.0}
 
-# # Perform synthesis
-# compile_ultra -gate_clock -no_autoungroup
+# Perform synthesis
+compile_ultra -gate_clock -no_autoungroup
 
-# # Report synthesis results
-# report_timing 
-# report_area
-# report_power
-# report_resources
+# Report synthesis results
+report_timing 
+report_area
+report_power
+report_resources
 
-# # Save the synthesized design to output files
-# write -hierarchy -output $output_file_db
-# write -f verilog -h -o $output_file_glnet
+# Save the synthesized design to output files
+write -hierarchy -output $output_file_db
+write -f verilog -h -o $output_file_glnet
