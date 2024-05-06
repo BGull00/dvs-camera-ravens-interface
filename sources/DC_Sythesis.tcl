@@ -1,36 +1,46 @@
+# CHANGE THIS FOR DIFFERENT COMPUTERS / USERS
+set sources_dir "/home/bgullet1/TENNLab/dvs-camera-ravens-interface/sources/"
+
+set sources_sv_dir "${sources_dir}sv/"
+set sources_pkg_dir "${sources_dir}pkg/"
+set output_file_db "${sources_dir}dvs_ravens_synthesized_design.db"
+set output_file_glnet "${sources_dir}dvs_ravens_glnet.v"
+
 set_app_var search_path ". /research/pdk/cmos10lpe_pdk/cmos10lpe_stdlib/stdlib_char/generated/library"
 set_app_var link_path "* stdlib_10lpe_ccs_comb.db"
 set_app_var target_library "stdlib_10lpe_ccs_comb.db"
 set_app_var symbol_library "dw_foundation.sldb"
-set output_file "synthesized_design.db"  # Path to output file
 
 # Define file paths
-set design_files [list "dvs_aer_to_event_interface.sv" "dvs_aer_reciever.sv" "dvs_event_crop_filter.sv" "dvs_event_polarity_filter.sv" "dvs_event_preprocessor.sv" "dvs_event_to_ravens.sv" "dvs_ravens.sv" "dvs_ravens_arbiter.sv" "dvs_fifo_event_queue.sv" "timer_us.sv" "dvs_event_to_ravens_spike.sv" "dvs_ravens_transmitter.sv"] 
-
-set top_module "dvs_aer_to_event_interface.sv"  # Name of the top module 
-# set constraints_file "constraints.sdc" ?
+set design_files [list "dvs_aer_to_event_interface.sv" "dvs_aer_reciever.sv" "dvs_event_crop_filter.sv" "dvs_event_polarity_filter.sv" "dvs_event_preprocessor.sv" "dvs_event_to_ravens.sv" "dvs_ravens.sv" "dvs_ravens_arbiter.sv" "dvs_fifo_event_queue.sv" "timer_us.sv" "dvs_event_to_ravens_spike.sv" "dvs_ravens_transmitter.sv" "sram_compiled_array_empty.sv"] 
 
 # Read the design files
+read_file -format sverilog "${sources_pkg_dir}dvs_ravens_pkg.sv"
 foreach file $design_files {
-    read_file $file
+    read_file -format sverilog $sources_sv_dir$file
 }
 
-# Specify the top module
-current_design $top_module
-
-# Read the constraints file if provided
-#if { [file exists $constraints_file] } {
-#    read_sdc $constraints_file
-#}
-
-# Set optimization effort level
-set_optimize_effort "high"  # Set high optimization effort level
+# Analyze the design files
+analyze -library WORK "${sources_pkg_dir}dvs_ravens_pkg.sv"
+foreach file $design_files {
+    analyze -library WORK $sources_sv_dir$file
+}
 
 # Perform elaboration (design hierarchy construction)
-elaborate
+elaborate dvs_ravens
 
-# Perform synthesis with high effort
-compile_ultra -gate_clock
+# Perform link
+link
+
+check_design
+
+# Create clock
+create_clock -name "clk" -period 10 -waveform {0.0 5.0}
+
+define_design_lib WORK -path "./work"
+
+# Perform synthesis
+compile_ultra -gate_clock -no_autoungroup
 
 # Report synthesis results
 report_timing 
@@ -38,5 +48,6 @@ report_area
 report_power
 report_resources
 
-# Save the synthesized design to an output file
-write -hierarchy -output $output_file
+# Save the synthesized design to output files
+write -hierarchy -output $output_file_db
+write -f verilog -h -o $output_file_glnet
