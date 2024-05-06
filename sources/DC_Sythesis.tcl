@@ -26,8 +26,10 @@ foreach file $design_files {
 #     analyze -library WORK $sources_sv_dir$file
 # }
 
+# current_design dvs_ravens
+
 # # Perform elaboration (design hierarchy construction)
-# elaborate dvs_ravens
+# elaborate
 
 # # Perform link
 # link
