@@ -128,44 +128,44 @@ capacitance_override -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk
 # Clock tree synthesis
 ccopt_design
 
-# # Post-CTS optimization
-# optDesign -postCTS -incr
-# optDesign -postCTS -incr -hold
+# Post-CTS optimization
+optDesign -postCTS -incr
+optDesign -postCTS -incr -hold
 
-# # STD cell filler
-# getFillerMode -quiet
-# addFiller -cell filler_x10 filler_x09 filler_x08 filler_x07 filler_x06 filler_x05 filler_x04 filler_x03 filler_x02 filler_x01 -prefix FILLER
+# STD cell filler
+getFillerMode -quiet
+addFiller -cell filler_x10 filler_x09 filler_x08 filler_x07 filler_x06 filler_x05 filler_x04 filler_x03 filler_x02 filler_x01 -prefix FILLER
 
-# # Routing
-# setNanoRouteMode -quiet -drouteFixAntenna 1
-# setNanoRouteMode -quiet -routeInsertAntennaDiode 0
-# setNanoRouteMode -quiet -routeWithTimingDriven 0
-# setNanoRouteMode -quiet -routeWithEco 0
-# setNanoRouteMode -quiet -routeWithLithoDriven 0
-# setNanoRouteMode -quiet -droutePostRouteLithoRepair 0
-# setNanoRouteMode -quiet -routeWithSiDriven 0
-# setNanoRouteMode -quiet -drouteAutoStop 0
-# setNanoRouteMode -quiet -routeSelectedNetOnly 0
-# setNanoRouteMode -quiet -routeTopRoutingLayer 5
-# setNanoRouteMode -quiet -routeBottomRoutingLayer 1
-# setNanoRouteMode -quiet -drouteEndIteration 1
-# setNanoRouteMode -quiet -routeWithTimingDriven false
-# setNanoRouteMode -quiet -routeWithSiDriven false
-# routeDesign -globalDetail
-# getMultiCpuUsage -localCpu
+# Routing
+setNanoRouteMode -quiet -drouteFixAntenna 1
+setNanoRouteMode -quiet -routeInsertAntennaDiode 0
+setNanoRouteMode -quiet -routeWithTimingDriven 0
+setNanoRouteMode -quiet -routeWithEco 0
+setNanoRouteMode -quiet -routeWithLithoDriven 0
+setNanoRouteMode -quiet -droutePostRouteLithoRepair 0
+setNanoRouteMode -quiet -routeWithSiDriven 0
+setNanoRouteMode -quiet -drouteAutoStop 0
+setNanoRouteMode -quiet -routeSelectedNetOnly 0
+setNanoRouteMode -quiet -routeTopRoutingLayer 5
+setNanoRouteMode -quiet -routeBottomRoutingLayer 1
+setNanoRouteMode -quiet -drouteEndIteration 1
+setNanoRouteMode -quiet -routeWithTimingDriven false
+setNanoRouteMode -quiet -routeWithSiDriven false
+routeDesign -globalDetail
+getMultiCpuUsage -localCpu
 
-# # DRC violation checking
-# get_verify_drc_mode -disable_rules -quiet
-# get_verify_drc_mode -quiet -area
-# get_verify_drc_mode -quiet -layer_range
-# get_verify_drc_mode -check_ndr_spacing -quiet
-# get_verify_drc_mode -check_only -quiet
-# get_verify_drc_mode -check_same_via_cell -quiet
-# get_verify_drc_mode -exclude_pg_net -quiet
-# get_verify_drc_mode -ignore_trial_route -quiet
-# get_verify_drc_mode -max_wrong_way_halo -quiet
-# get_verify_drc_mode -use_min_spacing_on_block_obs -quiet
-# get_verify_drc_mode -limit -quiet
-# set_verify_drc_mode -disable_rules {} -check_ndr_spacing auto -check_only default -check_same_via_cell true -exclude_pg_net false -ignore_trial_route false -ignore_cell_blockage false -use_min_spacing_on_block_obs auto -report dvs_aer_to_event_interface.drc.rpt -limit 1000
-# verify_drc
-# set_verify_drc_mode -area {0 0 0 0}
+# DRC violation checking
+get_verify_drc_mode -disable_rules -quiet
+get_verify_drc_mode -quiet -area
+get_verify_drc_mode -quiet -layer_range
+get_verify_drc_mode -check_ndr_spacing -quiet
+get_verify_drc_mode -check_only -quiet
+get_verify_drc_mode -check_same_via_cell -quiet
+get_verify_drc_mode -exclude_pg_net -quiet
+get_verify_drc_mode -ignore_trial_route -quiet
+get_verify_drc_mode -max_wrong_way_halo -quiet
+get_verify_drc_mode -use_min_spacing_on_block_obs -quiet
+get_verify_drc_mode -limit -quiet
+set_verify_drc_mode -disable_rules {} -check_ndr_spacing auto -check_only default -check_same_via_cell true -exclude_pg_net false -ignore_trial_route false -ignore_cell_blockage false -use_min_spacing_on_block_obs auto -report dvs_aer_to_event_interface.drc.rpt -limit 1000
+verify_drc
+set_verify_drc_mode -area {0 0 0 0}
