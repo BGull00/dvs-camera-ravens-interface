@@ -130,8 +130,8 @@ set_ccopt_property capacitance_override -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMP
 ccopt_design
 
 # Post-CTS optimization
-optDesign -postCTS -incr
-optDesign -postCTS -incr -hold
+# optDesign -postCTS -incr
+# optDesign -postCTS -incr -hold
 
 # STD cell filler
 getFillerMode -quiet
