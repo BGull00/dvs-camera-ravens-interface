@@ -113,7 +113,7 @@ setRouteMode -earlyGlobalHonorMsvRouteConstraint false -earlyGlobalRoutePartitio
 setUsefulSkewMode -maxSkew false -noBoundary false -useCells {buf_x1 buf_x2 buf_x4 buf_x8 buf_x16 buf_x32 buf_x64 inv_x1 inv_x2 inv_x4 inv_x8 inv_x16 inv_x32 inv_x64} -maxAllowedDelay 1
 setPlaceMode -reset
 setPlaceMode -congEffort high -timingDriven 1 -clkGateAware 1 -powerDriven 0 -ignoreScan 1 -reorderScan 1 -ignoreSpare 1 -placeIOPins 1 -moduleAwareSpare 1 -preserveRouting 0 -rmAffectedRouting 0 -checkRoute 0 -swapEEQ 0
-setRouteMode -earlyGlobalMaxRouteLayer 5
+setRouteMode -earlyGlobalMaxRouteLayer 6
 refinePlace -checkRoute 0 -preserveRouting 0 -rmAffectedRouting 0 -swapEEQ 0
 
 # Fourth placement: Before clock tree synthesis
@@ -147,7 +147,7 @@ setNanoRouteMode -quiet -droutePostRouteLithoRepair 0
 setNanoRouteMode -quiet -routeWithSiDriven 0
 setNanoRouteMode -quiet -drouteAutoStop 0
 setNanoRouteMode -quiet -routeSelectedNetOnly 0
-setNanoRouteMode -quiet -routeTopRoutingLayer 5
+setNanoRouteMode -quiet -routeTopRoutingLayer 6
 setNanoRouteMode -quiet -routeBottomRoutingLayer 1
 setNanoRouteMode -quiet -drouteEndIteration 1
 setNanoRouteMode -quiet -routeWithTimingDriven false
