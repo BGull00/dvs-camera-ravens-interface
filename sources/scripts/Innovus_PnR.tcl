@@ -1,4 +1,4 @@
-set sq_dimension 571.2
+set sq_dimension 495.04
 set glnetlist "dvs_ravens_glnet.v"
 
 # File imports, floorplanning, and power net setup
@@ -42,7 +42,7 @@ globalNetConnect gnd! -type pgpin -pin VSS -instanceBasename *
 globalNetConnect gnd! -type pgpin -pin gnd! -instanceBasename *
 
 # Place SRAM manually
-placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 159.8 128.52 R0 -placed
+placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 83.64 52.36 R0 -placed
 
 # Power rings, stripes, and srouting
 set sprCreateIeRingOffset 1.0
