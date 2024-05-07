@@ -1,4 +1,4 @@
-set sq_dimension 495.04
+set sq_dimension 571.2
 set glnetlist "dvs_ravens_glnet.v"
 
 # File imports, floorplanning, and power net setup
@@ -42,7 +42,7 @@ globalNetConnect gnd! -type pgpin -pin VSS -instanceBasename *
 globalNetConnect gnd! -type pgpin -pin gnd! -instanceBasename *
 
 # Place SRAM manually
-placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 83.64 52.36 R0 -placed
+placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 195.16 120.02 R0 -placed
 
 # Power rings, stripes, and srouting
 set sprCreateIeRingOffset 1.0
@@ -116,22 +116,22 @@ setPlaceMode -congEffort high -timingDriven 1 -clkGateAware 1 -powerDriven 0 -ig
 setRouteMode -earlyGlobalMaxRouteLayer 5
 refinePlace -checkRoute 0 -preserveRouting 0 -rmAffectedRouting 0 -swapEEQ 0
 
-# Fourth placement: Before clock tree synthesis
-place_opt_design -incremental
+# # Fourth placement: Before clock tree synthesis
+# place_opt_design -incremental
 
 # Fifth placement: Final refining
 refinePlace
 
-# Ensure clock tree synthesis runs
-set_ccopt_property sink_type -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk stop
-set_ccopt_property capacitance_override -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk 0.005
+# # Ensure clock tree synthesis runs
+# set_ccopt_property sink_type -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk stop
+# set_ccopt_property capacitance_override -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk 0.005
 
-# Clock tree synthesis
-ccopt_design
+# # Clock tree synthesis
+# ccopt_design
 
-# Post-CTS optimization
-optDesign -postCTS -incr
-optDesign -postCTS -incr -hold
+# # Post-CTS optimization
+# optDesign -postCTS -incr
+# optDesign -postCTS -incr -hold
 
 # STD cell filler
 getFillerMode -quiet
