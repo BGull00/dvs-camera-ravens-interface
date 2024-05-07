@@ -1,12 +1,12 @@
 ###################################################################
 
-# Created by write_sdc on Mon May  6 10:30:19 2024
+# Created by write_sdc on Mon May  6 23:10:54 2024
 
 ###################################################################
 set sdc_version 2.1
 
 set_units -time ns -resistance kOhm -capacitance pF -voltage V -current mA
-create_clock [get_ports clk]  -period 10  -waveform {0 5}
+create_clock [get_ports clk]  -period 50  -waveform {0 25}
 set_clock_gating_check -rise -setup 0 [get_cells                               \
 DVS_EVENT_TO_RAVENS_INST/clk_gate_dvs_event_reg/main_gate]
 set_clock_gating_check -fall -setup 0 [get_cells                               \
