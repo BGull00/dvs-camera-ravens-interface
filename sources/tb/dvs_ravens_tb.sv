@@ -93,6 +93,7 @@ module dvs_ravens_tb;
     initial begin: dvs_sim
     
         prev_y_addr = -1;
+	prev_added_expected_ravens_pkt = 0;
         
         // Generate a single event for a random pixel, do AER protocol handshaking on DVS camera side, and wait a random amount of time until continuing
         forever begin
