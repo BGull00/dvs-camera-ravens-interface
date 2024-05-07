@@ -42,7 +42,7 @@ link
 check_design
 
 # Create clock
-create_clock clk -period 10 -waveform {0 5}
+create_clock clk -period 50 -waveform {0 25}
 
 # Perform synthesis
 compile_ultra -gate_clock -no_autoungroup
