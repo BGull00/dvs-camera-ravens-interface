@@ -108,7 +108,7 @@ place_design
 setPlaceMode -fp false
 place_design -incremental
 
-# Third placement: More routing-aware;
+# Third placement: More routing-aware
 setRouteMode -earlyGlobalHonorMsvRouteConstraint false -earlyGlobalRoutePartitionPinGuide true
 setUsefulSkewMode -maxSkew false -noBoundary false -useCells {buf_x1 buf_x2 buf_x4 buf_x8 buf_x16 buf_x32 buf_x64 inv_x1 inv_x2 inv_x4 inv_x8 inv_x16 inv_x32 inv_x64} -maxAllowedDelay 1
 setPlaceMode -reset
