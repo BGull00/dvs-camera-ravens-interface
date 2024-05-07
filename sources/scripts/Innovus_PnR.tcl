@@ -42,7 +42,7 @@ globalNetConnect gnd! -type pgpin -pin VSS -instanceBasename *
 globalNetConnect gnd! -type pgpin -pin gnd! -instanceBasename *
 
 # Place SRAM manually
-placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 195.16 120.02 R0 -placed
+placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 195.16 128.52 R0 -placed
 
 # Power rings, stripes, and srouting
 set sprCreateIeRingOffset 1.0
@@ -130,8 +130,8 @@ set_ccopt_property capacitance_override -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMP
 ccopt_design
 
 # Post-CTS optimization
-# optDesign -postCTS -incr
-# optDesign -postCTS -incr -hold
+optDesign -postCTS -incr
+optDesign -postCTS -incr -hold
 
 # STD cell filler
 getFillerMode -quiet
