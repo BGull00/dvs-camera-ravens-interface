@@ -1,4 +1,4 @@
-set sq_dimension 571.2
+set sq_dimension 761.6
 set glnetlist "dvs_ravens_glnet.v"
 
 # File imports, floorplanning, and power net setup
@@ -42,7 +42,7 @@ globalNetConnect gnd! -type pgpin -pin VSS -instanceBasename *
 globalNetConnect gnd! -type pgpin -pin gnd! -instanceBasename *
 
 # Place SRAM manually
-placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 195.16 120.02 R0 -placed
+placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 297.16 222.02 R0 -placed
 
 # Power rings, stripes, and srouting
 set sprCreateIeRingOffset 1.0
@@ -113,7 +113,7 @@ setRouteMode -earlyGlobalHonorMsvRouteConstraint false -earlyGlobalRoutePartitio
 setUsefulSkewMode -maxSkew false -noBoundary false -useCells {buf_x1 buf_x2 buf_x4 buf_x8 buf_x16 buf_x32 buf_x64 inv_x1 inv_x2 inv_x4 inv_x8 inv_x16 inv_x32 inv_x64} -maxAllowedDelay 1
 setPlaceMode -reset
 setPlaceMode -congEffort high -timingDriven 1 -clkGateAware 1 -powerDriven 0 -ignoreScan 1 -reorderScan 1 -ignoreSpare 1 -placeIOPins 1 -moduleAwareSpare 1 -preserveRouting 0 -rmAffectedRouting 0 -checkRoute 0 -swapEEQ 0
-setRouteMode -earlyGlobalMaxRouteLayer 6
+setRouteMode -earlyGlobalMaxRouteLayer 8
 refinePlace -checkRoute 0 -preserveRouting 0 -rmAffectedRouting 0 -swapEEQ 0
 
 # Fourth placement: Before clock tree synthesis
@@ -147,7 +147,7 @@ setNanoRouteMode -quiet -droutePostRouteLithoRepair 0
 setNanoRouteMode -quiet -routeWithSiDriven 0
 setNanoRouteMode -quiet -drouteAutoStop 0
 setNanoRouteMode -quiet -routeSelectedNetOnly 0
-setNanoRouteMode -quiet -routeTopRoutingLayer 6
+setNanoRouteMode -quiet -routeTopRoutingLayer 8
 setNanoRouteMode -quiet -routeBottomRoutingLayer 1
 setNanoRouteMode -quiet -drouteEndIteration 1
 setNanoRouteMode -quiet -routeWithTimingDriven false
