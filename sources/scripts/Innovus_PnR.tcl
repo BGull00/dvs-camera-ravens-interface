@@ -1,7 +1,7 @@
 set sq_dimension 571.2
 set glnetlist "dvs_ravens_glnet.v"
 
-# File imports, floorplanning, and power setup
+# File imports, floorplanning, and power net setup
 set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
 suppressMessage ENCEXT-2799
 win
