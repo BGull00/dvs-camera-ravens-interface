@@ -124,7 +124,7 @@ refinePlace
 
 # Ensure clock tree synthesis runs
 set_ccopt_property sink_type -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk stop
-set_ccopt_property capacitance_override -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk 1
+set_ccopt_property capacitance_override -pin DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST/clk 0.005
 
 # Clock tree synthesis
 ccopt_design
