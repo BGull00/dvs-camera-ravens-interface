@@ -42,7 +42,7 @@ globalNetConnect gnd! -type pgpin -pin VSS -instanceBasename *
 globalNetConnect gnd! -type pgpin -pin gnd! -instanceBasename *
 
 # Place SRAM manually
-placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 120.02 81.94 R0 -placed
+placeInstance DVS_FIFO_EVENT_QUEUE_INST/SRAM_COMPILED_ARRAY_INST 188.02 81.94 R0 -placed
 
 # Power rings, stripes, and srouting
 set sprCreateIeRingOffset 1.0
